@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Body Parts - AutoParts Flamingo 95</title>
+<meta name="description" content="Shop Body Parts at AutoParts Flamingo 95 — high-quality replacement and OEM body parts for all vehicles.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 200; }
+header .wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; }
+.logo { position: relative; display: inline-block; }
+.logo img { height: 100px; width: auto; display: block; }
+.logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+header nav { display: flex; align-items: center; gap: 18px; }
+header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+.dropdown { position: relative; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+.dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+.dropdown-content a:hover { background: var(--accent); color: #fff; }
+.dropdown:hover .dropdown-content { display: block; }
+.cart-container { display: flex; flex-direction: column; align-items: center; position: relative; }
+.cart-indicator { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: bold; color: #fff; cursor: pointer; }
+.cart-indicator i { font-size: 20px; position: relative; }
+.cart-count { position: absolute; top: -8px; right: -10px; background: #1a73e8; color: #fff; font-size: 12px; font-weight: bold; border-radius: 50%; padding: 2px 6px; }
+.cart-text { color: #ccc; font-weight: normal; }
+.cart-value { color: #fff; font-weight: bold; margin-left: 4px; }
+.checkout-btn, .empty-cart-btn { margin-top: 10px; background: var(--accent); color: #fff; padding: 8px 14px; border: none; border-radius: 5px; font-weight: bold; cursor:pointer; font-size: 13px; width: 100%; }
+.checkout-btn:hover, .empty-cart-btn:hover { background: #c92f3d; }
+.cart-preview { display: none; position: absolute; top: 60px; right: 0; background: #fff; color: #222; min-width: 280px; max-height: 360px; overflow-y: auto; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 999; padding: 8px; }
+.cart-preview.active { display: block; }
+.cart-item { display:flex; align-items:center; gap:8px; padding:6px 4px; border-bottom: 1px solid #eee; }
+.cart-item img { width:44px; height:44px; object-fit:cover; border-radius:4px; }
+.cart-item .ci-text { font-size: 13px; color: #333; }
+.cart-empty { padding: 8px; color: #666; font-size: 13px; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 20px; }
+.product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; background: #fafafa; transition: transform .2s; padding-bottom: 10px; }
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #f4f4f4; display: block; margin: 0 auto; }
+.product-card h3 { margin: 12px 0 8px; font-size: 1.2rem; }
+.product-card p { font-size: 0.95rem; padding: 0 12px 8px; color: var(--muted); }
+.price { font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; }
+
+/* 🔧 Compact quantity box fix */
+.product-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.product-actions input[type="number"],
+.qty-input {
+  width: 50px;
+  padding: 4px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination { text-align: center; margin-top: 30px; }
+.pagination a { display: inline-block; margin: 0 5px; padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; color: var(--brand); text-decoration: none; font-weight: bold; cursor:pointer; }
+.pagination a.active, .pagination a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+footer a { color: #fff; text-decoration: underline; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; max-width: 400px; position: relative; }
+.close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #666; }
+.modal-content h2 { margin-bottom: 15px; font-size: 1.4rem; color: var(--brand); }
+.modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+.modal-content button { background: var(--accent); color: #fff; padding: 10px; border: none; border-radius: 5px; width: 100%; cursor: pointer; font-weight: bold; }
+.modal-content button:hover { background: #c92f3d; }
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="QikAuto Parts Logo">
+        </a>
+        <div class="logo-text"></div>
+      </div>
+<nav>
+<a href="index#about">About</a>
+<a href="index#products">Products</a>
+<a href="index#services">Services</a>
+<a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+<a href="index#contact">Contact</a>
+<a href="index#refund-policy">Policies</a>
+<a href="index#terms">Terms</a>
+<a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+<div class="dropdown">
+<span class="dropdown-btn"><span class="departments__button-title">Shop By Category</span> <i class="fa-solid fa-chevron-down"></i></span>
+<div class="dropdown-content">
+<a href="body">Body Parts</a>
+<a href="engine">Engine Parts</a>
+<a href="brake">Brake Parts</a>
+<a href="electrical">Electrical, Lighting and Body Parts</a>
+<a href="index#contact">Brake Systems</a>
+<a href="index#contact">Chassis & Suspension</a>
+<a href="index#contact">Cooling & Heating</a>
+<a href="index#contact">Engines & Components</a>
+<a href="index#contact">Exhaust</a>
+<a href="index#contact">Exterior & Accessories</a>
+<a href="index#contact">Fasteners & Hardware</a>
+<a href="index#contact">Fittings & Hoses</a>
+</div>
+</div>
+<div class="cart-container">
+<div class="cart-indicator">
+<i class="fa-solid fa-cart-shopping"></i>
+<span class="cart-count">0</span>
+<span class="cart-text">Shopping Cart</span>
+<span class="cart-value">$0.00</span>
+</div>
+<div class="cart-preview" id="cartPreview">
+<div class="cart-empty">Your cart is empty</div>
+</div>
+</div>
+</nav>
+</div>
+</header>
+
+  <main>
+  <section id="brake-parts">
+    <h1>Brake Parts</h1>
+    <p>Discover our premium brake components designed to ensure safety, reliability, and top performance for your vehicle.</p>
+
+    <!-- PAGE 1 -->
+    <div class="products page" id="page1" style="display:grid;">
+      <div class="product-card"><img src="https://i.imgur.com/tlwSCWG.jpeg" alt=""><h3>Part Number: BK1500</h3><p>Disc Brakes, Front, 11 in. Diameter Rotors, Solid, Vented, 1-Piston Calipers, Chevy, GM, Kit.</p><span class="price">$602.96</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/Q9DsZ5e.jpeg" alt=""><h3>Part Number: BK1401</h3><p>Disc Brakes, Front, 11 in. Diameter Rotors, Solid Surface, Vented, 1-Piston Calipers, Chevy, Kit.</p><span class="price">$780.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/hdwylDZ.jpeg" alt=""><h3>Part Number: BK1606</h3><p>Disc Brake Kit, Front Conversion, Power Assist, Solid Surface Rotors, Cast Iron Calipers.</p><span class="price">$1,469.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/whttpFE.jpeg" alt=""><h3>Part Number: BK1469</h3><p>Disc Brakes, Front, Classic Series, Cross-Drilled, Slotted Rotors, 2-Piston Calipers, GM, A-Body, OE Disc/Drum Brake.</p><span class="price">$869.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/yokRcbq.jpeg" alt=""><h3>Part Number: BK1274</h3><p>Disc Brake Conversion, Lines, Rotors, Red Calipers, Kit.</p><span class="price">$865.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/kAXSxkH.jpeg" alt=""><h3>Part Number: BK1983</h3><p>Disc Brakes, Rear, Classic Series, Cross-Drilled, Slotted Rotors, 1-Piston Calipers, GM, 10-Bolt, 12-Bolt.</p><span class="price">$649.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/mon3nht.jpeg" alt=""><h3>Part Number: BK1310</h3><p>Disc Brake Conversion, GM, Passenger Car, Kit.</p><span class="price">$629.55</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/rHDayaN.jpeg" alt=""><h3>Part Number: BK0357</h3><p>Disc Brake Kit, Front Conversion, Manual, Solid Surface Rotors, Cast Iron Calipers, Zinc Plated.</p><span class="price">$734.98</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/aILJyww.jpeg" alt=""><h3>Part Number: BK2612</h3><p>Disc Brake Kit, Front, 12 in. Rotor, One-Piston Calipers, Chevy, GMC, Kit.</p><span class="price">$698.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/8Ds879e.jpeg" alt=""><h3>Part Number: BK0679</h3><p>Disc Brakes, Front, 11 in. Diameter Rotors, Cross-Drilled/Slotted, Vented, 1-Piston Calipers, Chevy, Kit.</p><span class="price">$815.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/edgABqt.jpeg" alt=""><h3>Part Number: BK0960</h3><p>Disc Brakes, Front, 11 in. Diameter Rotors, Solid, Vented, 1-Piston Calipers.</p><span class="price">$903.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/HjndQZl.jpeg" alt=""><h3>Part Number: BK2105</h3><p>Disc Brake Conversion, Front, For 14 in. OEM Wheels, Buick, Chevy, Oldsmobile, Pontiac, Kit.</p><span class="price">$859.05</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/VfORTJy.jpeg" alt=""><h3>Part Number: BK1622</h3><p>Disc Brakes, SLC56, Front, 12.80 in. Rotors, Brake Pads, Cross-Drilled/Slotted Rotor.</p><span class="price">$1,160.71</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/k6c8JFA.jpeg" alt=""><h3>Part Number: BK1437</h3><p>Brake Rotors, Pads, Red Calipers, Drilled/Slotted Rotors, Truck/Tow Pads.</p><span class="price">$1,236.71</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/SDw0vhd.jpeg" alt=""><h3>Part Number: BK0226</h3><p>Brake Rotors, Red Calipers, Drilled/Slotted Rotors, Z36 Pads.</p><span class="price">$1,160.35</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/rRamPxJ.jpeg" alt=""><h3>Part Number: BK1131</h3><p>Disc Brake Kit, Rear, Manual, Cast Iron, Zinc Plated Caliper.</p><span class="price">$749.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/j2sWKGb.jpeg" alt=""><h3>Part Number: BK2216</h3><p>Brake Calipers, SLC56, Front, Aluminum, Red, Wilwood Logo, 4-piston.</p><span class="price">$875.74</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/20gfjr7.jpeg" alt=""><h3>Part Number: BK0620</h3><p>Disc Brake Pad and Rotor Kit, 14.00 in, Front Rotors, Redstuff Ceramic Pads</p><span class="price">$345.90</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="products page" id="page2" style="display:none;">
+      <div class="product-card"><img src="https://i.imgur.com/O2SS2o2.jpeg" alt=""><h3>Part Number: BR62000</h3><p>Brake Rotor, Front, RWD, 11.00 in. O.D., 279.4 mm.</p><span class="price">$69.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/pRmBQus.jpeg" alt=""><h3>Part Number: BR2000</h3><p>Brake Rotor, Iron, Zinc Plated, Drilled/Slotted, Ford, Front.</p><span class="price">$219.98</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/qHUDSjD.jpeg" alt=""><h3>Part Number: BR2410</h3><p>Brake Rotor, Front, 4WD, 11.71 in O.D., 297.4 mm O.D., 5 x 5.50 in.</p><span class="price">$157.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/HrT1O33.jpeg" alt=""><h3>Part Number: BR1419</h3><p>Brake Rotor, Front, RWD, 15.30 in. O.D., 389 mm.</p><span class="price">$1,228.68</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/LYjpvX2.jpeg" alt=""><h3>Part Number: BRK1679</h3><p>Brake Rotor, Front, RWD, 11.85 in. O.D., 301 mm O.D., 5 x 5.00 in.</p><span class="price">$205.98</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/2qLGWje.jpeg" alt=""><h3>Part Number: BR0983</h3><p>Brake Rotor, Front, RWD, 4WD, 13.66 in. O.D., 347 mm O.D., 8 x 6.69 in., 8 x 170 mm.</p><span class="price">$347.89</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/Ew8XFpY.jpeg" alt=""><h3>Part Number: BR1512</h3><p>Brake Rotor, Front, RWD, 4WD, 13.90 in. O.D., 353 mm O.D., 8 x 6.50 in.</p><span class="price">$338.48</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/sS3YRCO.jpeg" alt=""><h3>Part Number: BR0352</h3><p>Brake Rotor, Front, RWD, 11.00 in O.D., 279.4 mm O.D., 5 x 4.75 in.</p><span class="price">$178.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/MpXxRge.jpeg" alt=""><h3>Part Number: BR1112</h3><p>Brake Rotor, Front, FWD, RWD, AWD, 4WD, 13.00 in. O.D., 330 mm O.D., 6 x 5.50 in.</p><span class="price">$159.98</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/WHcz6Qu.jpeg" alt=""><h3>Part Number: BR0279</h3><p>Brake Rotor, Front, RWD, 11.10 in. O.D., 282 mm O.D., 5 x 4.75 in., 5 x 120 mm.</p><span class="price">$159.98</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/eaZpihD.jpeg" alt=""><h3>Part Number: BR0662</h3><p>Brake Rotor, Specialty Performance, Vented, Slotted Surface, Cast Iron.</p><span class="price">$144.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/ZohDCx9.jpeg" alt=""><h3>Part Number: BR4185</h3><p>Brake Rotors, Premium UV Coated, Solid Surface, 15.35 in. O.D., Iron, UV-coated.</p><span class="price">$399.02</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/Yvx4MYi.jpeg" alt=""><h3>Part Number: BR1820</h3><p>Brake Rotor, Front, Slotted, For Brembo 6-Piston Caliper.</p><span class="price">$896.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/0RoDa3j.jpeg" alt=""><h3>Part Number: BR1426</h3><p>Brake Rotor, Front, RWD, 14.50 in. O.D., 368 mm O.D., 5 x 4.75 in., 5 x 120 mm.</p><span class="price">$549.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/F8piNNb.jpeg" alt=""><h3>Part Number: BR2217</h3><p>Brake Rotor, Brembo, Vented, Slotted Surface, 14.96 in.</p><span class="price">$152.72</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/lws1ezw.jpeg" alt=""><h3>Part Number: BR1381</h3><p>Brake Rotor, GT 72 Series, Staggered Vane, Slotted, Iron.</p><span class="price">$661.66</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/rXFtCvM.jpeg" alt=""><h3>Part Number: BR7481</h3><p>Brake Rotor, Original Equipment, Vented, Solid Surface, Cast Iron.</p><span class="price">$140.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/TRCG3hJ.jpeg" alt=""><h3>Part Number: BR0425</h3><p>Brake Rotor, Brembo High Carbon, Front, Vented, Cross-Drilled Surface, 15.75 in</p><span class="price">$312.04</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <a href="#" onclick="showPage(1, event)" class="active">1</a>
+      <a href="#" onclick="showPage(2, event)">2</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+&copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/term">Terms & Conditions</a> | <a href="/refund">Refund Policy</a>
+</footer>
+
+<div id="loginModal" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+<h2>Login</h2>
+<input type="text" placeholder="Email">
+<input type="password" placeholder="Password">
+<button type="button" onclick="alert('Wrong password')">Login</button>
+<p style="margin-top:10px;font-size:0.9rem;">Don’t have an account? <a href="#">Register</a></p>
+</div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const STORAGE_KEY = "shoppingCart_v2";
+let cartItems = [];
+
+function loadCart(){try{cartItems=JSON.parse(localStorage.getItem(STORAGE_KEY))||[]}catch{cartItems=[]}}
+function saveCart(){localStorage.setItem(STORAGE_KEY,JSON.stringify(cartItems))}
+function escapeHtml(text){return String(text).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]))}
+function updateTotalsAndUI(){const c=cartItems.reduce((s,i)=>s+(i.qty||0),0),t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);document.querySelectorAll(".cart-count").forEach(e=>e.textContent=c);document.querySelectorAll(".cart-value").forEach(e=>e.textContent="$"+t.toFixed(2));renderCartPreview();}
+function renderCartPreview(){const p=document.getElementById("cartPreview");p.innerHTML="";if(!cartItems.length){p.innerHTML='<div class="cart-empty">Your cart is empty</div>';return}cartItems.forEach(i=>{const d=document.createElement("div");d.className="cart-item";d.innerHTML=`<img src="${i.img||''}" alt=""><div class="ci-text"><div style="font-weight:bold">${escapeHtml(i.title)}</div><div style="font-size:12px;color:#666">${i.qty} x $${(i.price||0).toFixed(2)}</div></div>`;p.appendChild(d)});const t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);const f=document.createElement("div");f.style.padding="8px";f.style.textAlign="right";f.style.fontWeight="bold";f.textContent="Total: $"+t.toFixed(2);p.appendChild(f);const b=document.createElement("button");b.textContent="Checkout";b.className="checkout-btn";b.addEventListener("click",()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")});p.appendChild(b);const e=document.createElement("button");e.textContent="Empty Cart";e.className="empty-cart-btn";e.addEventListener("click",()=>{cartItems=[];saveCart();updateTotalsAndUI()});p.appendChild(e);}
+function addToCart(i){const e=cartItems.find(x=>x.id===i.id);if(e)e.qty+=i.qty||1;else cartItems.push({...i,qty:i.qty||1});saveCart();updateTotalsAndUI();}
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".product-card").forEach(c=>{const b=c.querySelector("button");const qty=c.querySelector(".qty-input");b?.addEventListener("click",()=>{const quantity=parseInt(qty?.value)||1;const i={id:c.dataset.id||c.querySelector("h3").textContent,title:c.querySelector("h3").textContent,price:parseFloat(c.querySelector(".price")?.textContent.replace('$',''))||0,img:c.querySelector("img")?.src,qty:quantity};addToCart(i)})})});
+const cartIndicator=document.querySelector(".cart-indicator"),cartPreview=document.getElementById("cartPreview"),cartContainer=document.querySelector(".cart-container");
+cartIndicator.addEventListener("click",e=>{e.stopPropagation();cartPreview.classList.toggle("active")});
+cartPreview.addEventListener("click",e=>e.stopPropagation());
+document.addEventListener("click",e=>{if(!cartContainer.contains(e.target))cartPreview.classList.remove("active")});
+const modal=document.getElementById("loginModal"),navLogin=document.getElementById("navLogin"),spanClose=document.querySelector(".modal .close");
+navLogin.onclick=()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")};
+spanClose.onclick=()=>{modal.style.display="none";modal.setAttribute("aria-hidden","true")};
+window.onclick=e=>{if(e.target==modal){modal.style.display="none";modal.setAttribute("aria-hidden","true")}};
+(function init(){loadCart();updateTotalsAndUI()})();
+
+// --- Pagination Logic ---
+function showPage(page,event){
+  if(event)event.preventDefault();
+  document.querySelectorAll(".products.page").forEach(pg=>pg.style.display="none");
+  const selected=document.getElementById("page"+page);
+  if(selected)selected.style.display="grid";
+  document.querySelectorAll(".pagination a").forEach(a=>a.classList.remove("active"));
+  if(event?.target)event.target.classList.add("active");
+  document.querySelector("#body-parts")?.scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>

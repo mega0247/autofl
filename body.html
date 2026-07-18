@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Body Parts - AutoParts Flamingo 95</title>
+<meta name="description" content="Shop Body Parts at AutoParts Flamingo 95 — high-quality replacement and OEM body parts for all vehicles.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 200; }
+header .wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; }
+.logo { position: relative; display: inline-block; }
+.logo img { height: 100px; width: auto; display: block; }
+.logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+header nav { display: flex; align-items: center; gap: 18px; }
+header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+.dropdown { position: relative; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+.dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+.dropdown-content a:hover { background: var(--accent); color: #fff; }
+.dropdown:hover .dropdown-content { display: block; }
+.cart-container { display: flex; flex-direction: column; align-items: center; position: relative; }
+.cart-indicator { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: bold; color: #fff; cursor: pointer; }
+.cart-indicator i { font-size: 20px; position: relative; }
+.cart-count { position: absolute; top: -8px; right: -10px; background: #1a73e8; color: #fff; font-size: 12px; font-weight: bold; border-radius: 50%; padding: 2px 6px; }
+.cart-text { color: #ccc; font-weight: normal; }
+.cart-value { color: #fff; font-weight: bold; margin-left: 4px; }
+.checkout-btn, .empty-cart-btn { margin-top: 10px; background: var(--accent); color: #fff; padding: 8px 14px; border: none; border-radius: 5px; font-weight: bold; cursor:pointer; font-size: 13px; width: 100%; }
+.checkout-btn:hover, .empty-cart-btn:hover { background: #c92f3d; }
+.cart-preview { display: none; position: absolute; top: 60px; right: 0; background: #fff; color: #222; min-width: 280px; max-height: 360px; overflow-y: auto; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 999; padding: 8px; }
+.cart-preview.active { display: block; }
+.cart-item { display:flex; align-items:center; gap:8px; padding:6px 4px; border-bottom: 1px solid #eee; }
+.cart-item img { width:44px; height:44px; object-fit:cover; border-radius:4px; }
+.cart-item .ci-text { font-size: 13px; color: #333; }
+.cart-empty { padding: 8px; color: #666; font-size: 13px; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 20px; }
+.product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; background: #fafafa; transition: transform .2s; padding-bottom: 10px; }
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #f4f4f4; display: block; margin: 0 auto; }
+.product-card h3 { margin: 12px 0 8px; font-size: 1.2rem; }
+.product-card p { font-size: 0.95rem; padding: 0 12px 8px; color: var(--muted); }
+.price { font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; }
+
+/* 🔧 Compact quantity box fix */
+.product-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.product-actions input[type="number"],
+.qty-input {
+  width: 50px;
+  padding: 4px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination { text-align: center; margin-top: 30px; }
+.pagination a { display: inline-block; margin: 0 5px; padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; color: var(--brand); text-decoration: none; font-weight: bold; cursor:pointer; }
+.pagination a.active, .pagination a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+footer a { color: #fff; text-decoration: underline; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; max-width: 400px; position: relative; }
+.close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #666; }
+.modal-content h2 { margin-bottom: 15px; font-size: 1.4rem; color: var(--brand); }
+.modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+.modal-content button { background: var(--accent); color: #fff; padding: 10px; border: none; border-radius: 5px; width: 100%; cursor: pointer; font-weight: bold; }
+.modal-content button:hover { background: #c92f3d; }
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="QikAuto Parts Logo">
+        </a>
+        <div class="logo-text"></div>
+      </div>
+<nav>
+<a href="index#about">About</a>
+<a href="index#products">Products</a>
+<a href="index#services">Services</a>
+<a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+<a href="index#contact">Contact</a>
+<a href="index#refund-policy">Policies</a>
+<a href="index#terms">Terms</a>
+<a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+<div class="dropdown">
+<span class="dropdown-btn"><span class="departments__button-title">Shop By Category</span> <i class="fa-solid fa-chevron-down"></i></span>
+<div class="dropdown-content">
+<a href="body">Body Parts</a>
+<a href="engine">Engine Parts</a>
+<a href="brake">Brake Parts</a>
+<a href="electrical">Electrical, Lighting and Body Parts</a>
+<a href="index#contact">Brake Systems</a>
+<a href="index#contact">Chassis & Suspension</a>
+<a href="index#contact">Cooling & Heating</a>
+<a href="index#contact">Engines & Components</a>
+<a href="index#contact">Exhaust</a>
+<a href="index#contact">Exterior & Accessories</a>
+<a href="index#contact">Fasteners & Hardware</a>
+<a href="index#contact">Fittings & Hoses</a>
+</div>
+</div>
+<div class="cart-container">
+<div class="cart-indicator">
+<i class="fa-solid fa-cart-shopping"></i>
+<span class="cart-count">0</span>
+<span class="cart-text">Shopping Cart</span>
+<span class="cart-value">$0.00</span>
+</div>
+<div class="cart-preview" id="cartPreview">
+<div class="cart-empty">Your cart is empty</div>
+</div>
+</div>
+</nav>
+</div>
+</header>
+
+<main>
+  <section id="body-parts">
+    <h1>Body Parts</h1>
+    <p>Explore our wide selection of replacement and OEM body parts designed to keep your vehicle looking and performing its best.</p>
+
+<!-- PAGE 1 -->
+    <div class="products page" id="page1" style="display:grid;">
+      <div class="product-card"><img src="https://i.imgur.com/toAwAGP.png" alt=""><h3>Part Number: F1234</h3><p>2007 Chevrolet Silverado 1500 Trailer Hitch - Front 8 Cyl 4.8L.</p><span class="price">$343.43</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/zzYSUqw.png" alt=""><h3>Part Number: S2140</h3><p>1997 Dodge Ram 1500 Gooseneck Trailer Hitch.</p><span class="price">$331.35</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/P56JK0e.png" alt=""><h3>Part Number: F2294</h3><p>2009 Toyota Highlander Trailer Hitch - Rear 6 Cyl 3.3L.</p><span class="price">$436.74</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/uYR96Ck.png" alt=""><h3>Part Number: S1734</h3><p>1976 Dodge D100 Trailer Hitch - Rear 8 Cyl 7.2L.</p><span class="price">$484.51</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/vQS09ja.jpeg" alt=""><h3>Part Number: S2234</h3><p>Rear Trailer Hitch, GMC SIERRA 1500 CLASS III.</p><span class="price">$333.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/d8N7NoI.jpeg" alt=""><h3>Part Number: S1182</h3><p>Rear Trailer Hitch, GMC SIERRA 1500 HD CLASS III.</p><span class="price">$111.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/teTzG6P.jpeg" alt=""><h3>Part Number: F8465</h3><p>Trailer Hitch, Class III, Front Receiver, 2 in.</p><span class="price">$287.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/tSLJIBE.jpeg" alt=""><h3>Part Number: F1426</h3><p>Gooseneck Hitch, Double-Lock, Steel, Chevy, GMC, Dodge.</p><span class="price">$319.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/u4Dwp8t.jpeg" alt=""><h3>Part Number: F1670</h3><p>Receiver Hitch, Class 3, Hardware Included, Max.</p><span class="price">$229.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/NCDGN8t.jpeg" alt=""><h3>Part Number: F1566</h3><p>Receiver Hitch, Class V, 2 in. Receiver, Carbide Powdercoated, Chevy, GMC.</p><span class="price">$258.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/9uwnfrY.jpeg" alt=""><h3>Part Number: F1679</h3><p>Receiver Hitch, Front, Class 3, 2 in. Square, 500 lb. Max Tongue, 5,000 lb.</p><span class="price">$525.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/HHfksEp.jpeg" alt=""><h3>Part Number: M1983</h3><p>Gooseneck Hitch, Flat Plate, Carbide Powdercoated, 2-5/16 in.</p><span class="price">$258.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/fj4QqQG.jpeg" alt=""><h3>Part Number: F1917</h3><p>Gooseneck Hitch, Double-Lock, Bed Location, Steel, Carbide Powdercoated, Chevy.</p><span class="price">$507.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/Q72rW5j.jpeg" alt=""><h3>Part Number: F1387</h3><p>Receiver Hitch, Rear, Class 3, 2 in. Square, Square Tube Welded, Black Powdercoated, Chevy.</p><span class="price">$210.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+      <div class="product-card"><img src="https://i.imgur.com/vd9tk5f.jpeg" alt=""><h3>Part Number: F1679</h3><p>Receiver Hitch, for Outlaw Bumper, Class 3, Rear, 2 in. Square Receiver.</p><span class="price">$354.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="products page" id="page2" style="display:none;">
+      <div class="product-card"><img src="https://i.imgur.com/VnSNhtn.jpeg" alt=""><h3>Part Number: F2411</h3><p>Bumper Replacement Parts, Bumper Deflectors, Front.</p><span class="price">$114.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/NbHi7ub.jpeg" alt=""><h3>Part Number: C1420</h3><p>Bumper Replacement Part, Face Bar, Steel, Chrome, Front.</p><span class="price">$175.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/CYq3AhM.jpeg" alt=""><h3>Part Number: C1074</h3><p>Bumper Replacement Parts, Face Bar, Front.</p><span class="price">$89.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/I52O7MB.jpeg" alt=""><h3>Part Number: B3203</h3><p>Bumper Replacement Part, Face Bar, Steel, Black, Front.</p><span class="price">$186.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/IuCbUzy.jpeg" alt=""><h3>Part Number: S1352</h3><p>Bumper Replacement Parts, Rear Face Bar, Steel, GMC.</p><span class="price">$228.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/f7M7Rbi.jpeg" alt=""><h3>Part Number: S2185</h3><p>Grille, Chevy, Chrome Frame, Gray Split Center.</p><span class="price">$111.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/fTCmqBu.jpeg" alt=""><h3>Part Number: F3907</h3><p>Grille, Main Grille, Stock, ABS Plastic, Chrome, Chevy.</p><span class="price">$134.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/pEpEErY.jpeg" alt=""><h3>Part Number: F2360</h3><p>Grille, Main Grille, Stock, ABS Plastic, Chrome, Dodge.</p><span class="price">$122.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/RAO5GZh.jpeg" alt=""><h3>Part Number: 2175</h3><p>Grille, Main Grille, Stock, ABS Plastic, Chrome, GMC.</p><span class="price">$127.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/t6CHlJr.jpeg" alt=""><h3>Part Number: H2012</h3><p>Grille, Main Grille, Stock, ABS Plastic, Black, Dodge.</p><span class="price">$139.95</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/GXrORED.jpeg" alt=""><h3>Part Number: F1360</h3><p>Body Parts Front Fenders GM1240342PP.</p><span class="price">$189.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/CFHZNk0.jpeg" alt=""><h3>Part Number: A2603</h3><p>Body Parts Front Fenders for 2007-2014 SILVERADO 3500 HD.</p><span class="price">$169.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/T2lFrFF.jpeg" alt=""><h3>Part Number: S1620</h3><p>Fender, Front Outer, Driver Side, Steel, Black EDP Coated, Honda®.</p><span class="price">$158.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/rVNSfhv.jpeg" alt=""><h3>Part Number: M1452</h3><p>FENDER; FRONT; LH; 92-96 FORD F-150 and Bronco, 92-97 F250 and F350.</p><span class="price">$132.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/X5rzjny.jpeg" alt=""><h3>Part Number: 1226</h3><p>FENDER; FRONT; RH; 99-05 MIATA.</p><span class="price">$137.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/VSh1i9u.jpeg" alt=""><h3>Part Number: 1129</h3><p>Body Parts Front Fenders GM1241342PP.</p><span class="price">$197.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/leBOVI6.jpeg" alt=""><h3>Part Number: M234</h3><p>Fifth Wheel Hitch, E16 Dual Pivot Head, 16,000 lbs.</p><span class="price">$525.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+
+      <div class="product-card"><img src="https://i.imgur.com/k5ZLDuw.jpeg" alt=""><h3>Part Number: M1483</h3><p>Trailer Hitch, Class III, 2 in. Receiver, Black, Round Tube, Chevy/GMC.</p><span class="price">$210.99</span>
+        <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+    <div class="pagination">
+      <a href="#" onclick="showPage(1, event)" class="active">1</a>
+      <a href="#" onclick="showPage(2, event)">2</a>
+    </div>
+
+<footer>
+&copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/term">Terms & Conditions</a> | <a href="/refund">Refund Policy</a>
+</footer>
+
+<div id="loginModal" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+<h2>Login</h2>
+<input type="text" placeholder="Email">
+<input type="password" placeholder="Password">
+<button type="button" onclick="alert('Wrong password')">Login</button>
+<p style="margin-top:10px;font-size:0.9rem;">Don’t have an account? <a href="#">Register</a></p>
+</div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const STORAGE_KEY = "shoppingCart_v2";
+let cartItems = [];
+
+function loadCart(){try{cartItems=JSON.parse(localStorage.getItem(STORAGE_KEY))||[]}catch{cartItems=[]}}
+function saveCart(){localStorage.setItem(STORAGE_KEY,JSON.stringify(cartItems))}
+function escapeHtml(text){return String(text).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]))}
+function updateTotalsAndUI(){const c=cartItems.reduce((s,i)=>s+(i.qty||0),0),t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);document.querySelectorAll(".cart-count").forEach(e=>e.textContent=c);document.querySelectorAll(".cart-value").forEach(e=>e.textContent="$"+t.toFixed(2));renderCartPreview();}
+function renderCartPreview(){const p=document.getElementById("cartPreview");p.innerHTML="";if(!cartItems.length){p.innerHTML='<div class="cart-empty">Your cart is empty</div>';return}cartItems.forEach(i=>{const d=document.createElement("div");d.className="cart-item";d.innerHTML=`<img src="${i.img||''}" alt=""><div class="ci-text"><div style="font-weight:bold">${escapeHtml(i.title)}</div><div style="font-size:12px;color:#666">${i.qty} x $${(i.price||0).toFixed(2)}</div></div>`;p.appendChild(d)});const t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);const f=document.createElement("div");f.style.padding="8px";f.style.textAlign="right";f.style.fontWeight="bold";f.textContent="Total: $"+t.toFixed(2);p.appendChild(f);const b=document.createElement("button");b.textContent="Checkout";b.className="checkout-btn";b.addEventListener("click",()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")});p.appendChild(b);const e=document.createElement("button");e.textContent="Empty Cart";e.className="empty-cart-btn";e.addEventListener("click",()=>{cartItems=[];saveCart();updateTotalsAndUI()});p.appendChild(e);}
+function addToCart(i){const e=cartItems.find(x=>x.id===i.id);if(e)e.qty+=i.qty||1;else cartItems.push({...i,qty:i.qty||1});saveCart();updateTotalsAndUI();}
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".product-card").forEach(c=>{const b=c.querySelector("button");const qty=c.querySelector(".qty-input");b?.addEventListener("click",()=>{const quantity=parseInt(qty?.value)||1;const i={id:c.dataset.id||c.querySelector("h3").textContent,title:c.querySelector("h3").textContent,price:parseFloat(c.querySelector(".price")?.textContent.replace('$',''))||0,img:c.querySelector("img")?.src,qty:quantity};addToCart(i)})})});
+const cartIndicator=document.querySelector(".cart-indicator"),cartPreview=document.getElementById("cartPreview"),cartContainer=document.querySelector(".cart-container");
+cartIndicator.addEventListener("click",e=>{e.stopPropagation();cartPreview.classList.toggle("active")});
+cartPreview.addEventListener("click",e=>e.stopPropagation());
+document.addEventListener("click",e=>{if(!cartContainer.contains(e.target))cartPreview.classList.remove("active")});
+const modal=document.getElementById("loginModal"),navLogin=document.getElementById("navLogin"),spanClose=document.querySelector(".modal .close");
+navLogin.onclick=()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")};
+spanClose.onclick=()=>{modal.style.display="none";modal.setAttribute("aria-hidden","true")};
+window.onclick=e=>{if(e.target==modal){modal.style.display="none";modal.setAttribute("aria-hidden","true")}};
+(function init(){loadCart();updateTotalsAndUI()})();
+
+// --- Pagination Logic ---
+function showPage(page,event){
+  if(event)event.preventDefault();
+  document.querySelectorAll(".products.page").forEach(pg=>pg.style.display="none");
+  const selected=document.getElementById("page"+page);
+  if(selected)selected.style.display="grid";
+  document.querySelectorAll(".pagination a").forEach(a=>a.classList.remove("active"));
+  if(event?.target)event.target.classList.add("active");
+  document.querySelector("#body-parts")?.scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>

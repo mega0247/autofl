@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoParts Flamingo 95</title>
+  <meta name="description" content="AutoParts Flamingo 95 — auto parts supply, repair, and maintenance solutions. Professional service, quality parts, and secure payments.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+    main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+    header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 20; }
+    header .wrap { width: 100%; margin: 0; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+    .logo { position: relative; display: inline-block; }
+    .logo img { height: 100px; width: auto; display: block; }
+    .logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+    header nav { display: flex; align-items: center; gap: 18px; }
+    header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+    header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+    .dropdown { position: relative; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+    .dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+    .dropdown-content a:hover { background: var(--accent); color: #fff; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-btn i { transition: transform 0.3s; }
+    .dropdown:hover .dropdown-btn i { transform: rotate(180deg); }
+
+    .hero {
+      background: #000 url('https://i.imgur.com/QIhkfbp.jpeg') 
+                  no-repeat center center / cover;
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h1 { font-size: 2.5rem; text-shadow: 2px 2px 6px rgba(0,0,0,.7); }
+    .hero p { max-width: 700px; margin: 15px auto; font-size: 1.1rem; }
+    .btn { background: var(--accent); color: #fff; padding: 10px 18px; border-radius: 5px; display: inline-block; text-decoration: none; margin-top: 12px; font-weight: bold; }
+    section { margin-bottom: 50px; }
+    h2 { margin-bottom: 18px; color: var(--brand); font-size: 1.8rem; }
+    #about { text-align: center; max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    #about p { margin-bottom: 18px; font-size: 1rem; color: #333; }
+    #about ul { list-style: none; padding: 0; margin: 20px 0; }
+    #about ul li { margin: 6px 0; font-weight: bold; }
+    #about h3 { margin-top: 25px; margin-bottom: 10px; font-size: 1.4rem; color: var(--brand); }
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; background: #fafafa; transition: transform .2s; }
+    .product-card:hover { transform: translateY(-5px); }
+    .product-card img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #f4f4f4; display: block; margin: 0 auto; }
+    .product-card h3 { margin: 12px 0 8px; font-size: 1.2rem; }
+    .product-card p { font-size: 0.95rem; padding: 0 12px 16px; color: var(--muted); }
+    .product-card button { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:10px; }
+    .product-card button:hover { background: #c92f3d; }
+    .services ul { list-style: none; padding-left: 0; }
+    .services li { margin: 8px 0; }
+    .form-box { border: 1px solid #ddd; padding: 20px; border-radius: 6px; background: #fafafa; margin-top: 20px; }
+    .form-box label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    .form-box input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+    .form-box button { background: var(--accent); color: #fff; padding: 10px 18px; border: none; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    .form-box button:hover { background: #c92f3d; }
+    .form-links { margin-top: 10px; font-size: 0.9rem; }
+    .form-links a { color: var(--accent); text-decoration: none; }
+    .form-links a:hover { text-decoration: underline; }
+    .contact-info p { margin: 6px 0; }
+    .contact-form { margin-top: 20px; }
+    .contact-form label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+    .contact-form textarea { height: 120px; resize: vertical; }
+    .contact-form .consent { margin: 15px 0; font-size: 0.9rem; color: var(--muted); }
+    .contact-form button { background: var(--accent); color: #fff; padding: 10px 18px; border: none; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+    .contact-form button:hover { background: #c92f3d; }
+    footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+    footer a { color: #fff; text-decoration: underline; }
+    #loginModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000; }
+    #loginModal .modal-content { background:#fff; padding:20px; border-radius:8px; max-width:400px; width:90%; position:relative; }
+    #loginModal .close { position:absolute; top:10px; right:15px; font-size:20px; cursor:pointer; }
+    .toggle-link { display:block; margin-top:10px; color: var(--accent); cursor:pointer; }
+    .toggle-link:hover { text-decoration:underline; }
+    @media(max-width:768px){
+      .hero { padding: 70px 20px; }
+      .hero h1 { font-size: 1.8rem; }
+      header nav { flex-direction: column; gap: 10px; }
+      .dropdown-content { position: static; margin-top: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="QikAuto Parts Logo">
+        </a>
+        <div class="logo-text"></div>
+      </div>
+      <nav>
+        <a href="index#about">About</a>
+        <a href="index#products">Products</a>
+        <a href="index#services">Services</a>
+        <a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+        <a href="index#contact">Contact</a>
+        <a href="index#refund-policy">Policies</a>
+        <a href="index#terms">Terms</a>
+        <a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+        <div class="dropdown">
+          <span class="dropdown-btn">
+            <span class="departments__button-title">Shop By Category</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+          <div class="dropdown-content">
+            <a href="body">Body Parts</a>
+            <a href="engine">Engine Parts</a>
+            <a href="brake">Brake Parts</a>
+            <a href="electrical">Electrical, Lighting and Body Parts</a>
+            <a href="index#contact">Brake Systems</a>
+            <a href="index#contact">Chassis & Suspension</a>
+            <a href="index#contact">Cooling & Heating</a>
+            <a href="index#contact">Engines & Components</a>
+            <a href="index#contact">Exhaust</a>
+            <a href="index#contact">Exterior & Accessories</a>
+            <a href="index#contact">Fasteners & Hardware</a>
+            <a href="index#contact">Fittings & Hoses</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Quality Auto Parts You Can Trust</h1>
+    <p>Your one-stop shop for reliable and affordable automotive components.</p>
+    <a href="https://autopartsflamingo95.com/body" class="btn">Shop Now</a>
+  </section>
+
+  <!-- Silent script to block common "view source / inspect" shortcuts and right-click -->
+  <script>
+    (function () {
+      'use strict';
+
+      // List of checks for key combos we want to block
+      function shouldBlockKey(e) {
+        // Normalize the key value
+        const key = (e.key || '').toLowerCase();
+        const ctrl = e.ctrlKey || e.metaKey; // include Cmd for Mac (metaKey)
+        const shift = e.shiftKey;
+        const alt = e.altKey;
+
+        // F12
+        if (e.keyCode === 123) return true;
+
+        // Ctrl/Cmd + U (view-source / view-source in some browsers)
+        if (ctrl && key === 'u') return true;
+
+        // Ctrl/Cmd + Shift + I  (DevTools)
+        if (ctrl && shift && key === 'i') return true;
+
+        // Ctrl/Cmd + Shift + C (inspect element / element picker)
+        if (ctrl && shift && key === 'c') return true;
+
+        // Ctrl/Cmd + Shift + J  (console)
+        if (ctrl && shift && key === 'j') return true;
+
+        // Ctrl/Cmd + Shift + K (firefox console)
+        if (ctrl && shift && key === 'k') return true;
+
+        // Ctrl/Cmd + Shift + S (some screenshot/dev combos) — precaution
+        if (ctrl && shift && key === 's') return true;
+
+        // Ctrl/Cmd + Shift + U (some dev combos)
+        if (ctrl && shift && key === 'u') return true;
+
+        return false;
+      }
+
+      // Silent handler that prevents and stops propagation
+      function blockHandler(e) {
+        try {
+          if (shouldBlockKey(e)) {
+            e.preventDefault && e.preventDefault();
+            e.stopImmediatePropagation && e.stopImmediatePropagation();
+            e.stopPropagation && e.stopPropagation();
+            return false;
+          }
+        } catch (err) {
+          // Silent fail — do nothing visible
+        }
+      }
+
+      // Add listeners in capture phase to take precedence
+      function attachListeners() {
+        // Avoid double-attaching
+        if (window.__inspectBlockerAttached) return;
+        window.__inspectBlockerAttached = true;
+
+        document.addEventListener('keydown', blockHandler, true);
+        document.addEventListener('keyup', blockHandler, true);
+        document.addEventListener('keypress', blockHandler, true);
+
+        // Block right-click context menu
+        document.addEventListener('contextmenu', function (e) {
+          try {
+            e.preventDefault && e.preventDefault();
+            e.stopImmediatePropagation && e.stopImmediatePropagation();
+            e.stopPropagation && e.stopPropagation();
+          } catch (err) {
+            // Silent
+          }
+          return false;
+        }, true);
+
+        // Block selection of "view source" via mouse gestures that open context
+        // (keeps things silent)
+        document.addEventListener('mousedown', function (e) {
+          try {
+            // Middle click + Ctrl or middle click alone sometimes opens devtools in some setups
+            if (e.button === 1) {
+              e.preventDefault && e.preventDefault();
+              e.stopImmediatePropagation && e.stopImmediatePropagation();
+              e.stopPropagation && e.stopPropagation();
+              return false;
+            }
+          } catch (err) { /* silent */ }
+        }, true);
+      }
+
+      // Re-attach protective listeners if something removes them
+      function observeAndRestore() {
+        try {
+          const observer = new MutationObserver(function () {
+            // ensure flags/listeners exist
+            attachListeners();
+          });
+          observer.observe(document.documentElement || document, {
+            childList: true,
+            subtree: true,
+            attributes: true
+          });
+          // store the observer so it won't be garbage collected
+          window.__inspectBlockerObserver = observer;
+        } catch (err) {
+          // silent
+        }
+      }
+
+      // Protect the handler functions/properties from easy overwrite
+      try {
+        Object.defineProperty(window, '__shouldBlockKey', {
+          value: shouldBlockKey,
+          writable: false,
+          configurable: false,
+          enumerable: false
+        });
+        Object.defineProperty(window, '__blockHandler', {
+          value: blockHandler,
+          writable: false,
+          configurable: false,
+          enumerable: false
+        });
+      } catch (e) {
+        // ignore if environment prevents it
+      }
+
+      // Run initial setup
+      attachListeners();
+      observeAndRestore();
+
+      // In case other scripts try to reassign event handlers directly on document:
+      // keep the default on* properties null but re-attach if changed
+      (function monitorOnProps() {
+        try {
+          const props = ['oncontextmenu', 'onkeydown', 'onkeyup', 'onkeypress', 'onmousedown'];
+          props.forEach(function (p) {
+            try {
+              var current = document[p];
+              Object.defineProperty(document, p, {
+                configurable: true,
+                enumerable: true,
+                get: function () {
+                  return current;
+                },
+                set: function (val) {
+                  // silently ignore replacements that would disable our listeners
+                  current = current || val;
+                  // reattach our listeners after a short tick
+                  setTimeout(function () {
+                    attachListeners();
+                  }, 50);
+                }
+              });
+            } catch (er) { /* silent */ }
+          });
+        } catch (err) { /* silent */ }
+      }());
+    })();
+  </script>
+</body>
+</html>
+
+
+
+<!-- About Us Section -->
+<section id="about">
+  <h2>AutoParts Flamingo 95 Company Information</h2>
+  <p>To say that buying auto parts on the Internet is a mixed bag is something of an understatement. Oftentimes you may find the parts that you need, but you'll be required to pay through the nose to get them. Dealers are certainly an option, but they are always the most expensive one. At that point, price significantly outweighs the convenience that comes with buying online. Other sites may have rock bottom prices, but they may be far from trustworthy and sell low quality brands.</p>
+
+  <p>Those issues are a large part of why AutoParts Flamingo 95 exists. We want to remove all of the stress and hassle that normally goes with buying auto parts online and replace them with the best experience possible.</p>
+
+  <p>Our commitment to our customers can be broken down into a few different categories, including the following:</p>
+  <ul>
+    <li>Our Selection</li>
+    <li>Our Commitment to Excellence</li>
+    <li>Our Relationship With Our Customers</li>
+    <li>Our Online Community</li>
+    <li>Our Low Price Guarantee</li>
+    <li>Our Safety Measures</li>
+  </ul>
+
+  <h3>The AutoParts Flamingo 95 Selection</h3>
+  <p>At AutoParts Flamingo 95, we live by a simple rule. We want to make sure that you never have to pay retail prices for your quality auto parts ever again. We go out of our way to provide a comprehensive list of replacement discount auto parts for most car and truck models that are available today. Additionally, we have a complete line of automotive accessories and performance parts available at all times. This is all possible thanks to the relationships that we've established with our suppliers over the years. We work hard with our suppliers and distributors 24 hours a day, seven days a week to be able to provide you with the absolute best automotive products all year round. We can also offer OEM (original equipment manufacturer) parts, identical to what you could get through a dealer, at a fraction of the cost.</p>
+
+  <h3>A Commitment to Excellence</h3>
+  <p>We have a true passion for not just auto parts, but for the business in general. In addition to our amazing selection, we want to make sure that you have a top quality customer service experience at the same time. We operate on the idea that success requires high quality systems operation and organization. We're incredibly proud to say that we offer both of those things and will continue to do so for as long as we're in business.</p>
+
+  <h3>The AutoParts Flamingo 95 Relationship</h3>
+  <p>At AutoParts Flamingo 95, we find that the most exciting aspect of our job involves the bond that we've created with our customers. Our passion for our clients and their happiness has kept them loyal and we're very appreciative of that. We also understand that bond is a two-way street. This is why we're constantly working to improve our operation with each passing day. We're always streamlining our services, increasing our product offerings and more.</p>
+</section>
+
+<main>
+<!-- PRODUCTS -->
+<section id="products">
+<h2>Featured Products</h2>
+<div class="products">
+  <div class="product-card">
+    <img src="https://i.imgur.com/D9lLQII.png" alt="Accessories and Fluids">
+    <h3>Accessories and Fluids</h3>
+    <p>All your vehicle accessories and essential fluids.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/v9H73nN.png" alt="Air and Fuel Delivery">
+    <h3>Air and Fuel Delivery</h3>
+    <p>Components for optimal air and fuel delivery in engines.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/JR0j7gq.png" alt="Belts and Cooling">
+    <h3>Belts and Cooling</h3>
+    <p>High-quality belts and cooling system parts.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/R7kE0N6.png" alt="Body">
+    <h3>Body</h3>
+    <p>Body parts and panels to restore your vehicle’s exterior.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/XCgyUXt.png" alt="Brake">
+    <h3>Brake</h3>
+    <p>Brake pads, rotors, and components for safe stopping.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/nfAO2G6.png" alt="Driveline and Axles">
+    <h3>Driveline and Axles</h3>
+    <p>Driveline and axle components for smooth power transfer.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/3M1ceNM.png" alt="Electrical, Charging and Starting">
+    <h3>Electrical, Charging and Starting</h3>
+    <p>Batteries, starters, and charging system components.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/FOosFHm.png" alt="Electrical, Lighting and Body">
+    <h3>Electrical, Lighting and Body</h3>
+    <p>Lighting and electrical accessories for your vehicle.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/MOILboW.png" alt="Emission Control">
+    <h3>Emission Control</h3>
+    <p>Emission system parts to meet environmental standards.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/9VQq9DJ.png" alt="Engine">
+    <h3>Engine</h3>
+    <p>Essential engine parts for performance and reliability.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/12aebLH.png" alt="Exhaust">
+    <h3>Exhaust</h3>
+    <p>Exhaust components for noise reduction and efficiency.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/HMdOz30.png" alt="HVAC">
+    <h3>HVAC</h3>
+    <p>Heating, ventilation, and air conditioning components.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/Qr0arBQ.png" alt="Ignition">
+    <h3>Ignition</h3>
+    <p>Ignition parts for reliable engine starts.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/cPFMdRu.png" alt="Steering">
+    <h3>Steering</h3>
+    <p>Steering system components for precise handling.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/b3cevRi.png" alt="Suspension">
+    <h3>Suspension</h3>
+    <p>Suspension components for ride comfort and stability.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/yIjmxdH.png" alt="Tire and Wheel">
+    <h3>Tire and Wheel</h3>
+    <p>Tires and wheel components for safety and performance.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/6nvg69z.png" alt="Tools and Equipment">
+    <h3>Tools and Equipment</h3>
+    <p>Auto tools and equipment for maintenance and repair.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/72oNUB8.png" alt="Transfer Case">
+    <h3>Transfer Case</h3>
+    <p>Transfer case parts for 4WD and AWD vehicles.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/yvYfFWl.png" alt="Transmission">
+    <h3>Transmission</h3>
+    <p>Transmission components for smooth shifting.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/iGuwFpM.png" alt="Wiper and Washer">
+    <h3>Wiper and Washer</h3>
+    <p>Wipers and washer components for clear visibility.</p>
+  </div>
+  <div class="product-card">
+    <img src="https://i.imgur.com/X5PuVwF.png" alt="Automotive Parts">
+    <h3>Automotive Parts</h3>
+    <p>Auto tools and equipment for maintenance and repair.</p>
+  </div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+<h2>Buy Auto Parts at AutoParts Flamingo 95</h2>
+<ul>
+  <li>Welcome to AutoParts Flamingo 95, where you will find discount prices on millions of domestic and import auto parts and car accessories. AutoParts Flamingo 95 is your #1 spot for auto parts and performance parts. Buy wholesale auto parts direct from an experienced import and domestic auto parts online supplier. At AutoParts Flamingo 95, it is our goal to provide you discount auto parts and auto accessories fast. AutoParts Flamingo 95 stocks an extensive selection of APF95 and aftermarket auto parts. We also have the largest selection of automotive accessories and automotive performance parts, all at rock bottom prices.</li>
+  <li>You will find that our discount prices on domestic auto parts and import auto parts are unbeatable. In fact, we take pride in providing you prices on our auto parts well below retail. We have millions of new auto parts to choose from that are in stock and ready to be shipped for your auto repair. Most items are shipped the same day!</li>
+  <li>It is one of our priorities to provide a website that will allow you to purchase all your auto parts in one place. For this reason we maintain a huge inventory of the most common and hardest to find auto parts. Each auto part we sell has passed rigorous tests by the manufacturer and we only sell auto parts from the most trusted automotive brands. Each auto part we sell also comes with a warranty, either directly through us or though the manufacturer. The warranty information is displayed next to each part.</li>
+  <li>We have thousands of satisfied customers who can attest to our reputation, not too mention our low rates on discount auto parts. Our simple to navigate website will allow you to search for the parts you need according to the make and model of your vehicle. We invite you to come visit us today for all of your auto parts needs!</li>
+  <li>It doesn't matter if you have an older vehicle that you want to get back or keep on the road, or if you have a newer vehicle that you want to add performance auto parts to, we have the selection and the incredible pricing to meet your needs. From smaller cars like the Volkswagen Golf to larger trucks like the Dodge Ram, we can provide you with the auto parts you need. We ship worldwide and with over 50 warehouses through North America, and an experienced staff in the automotive industry, we are sure to please.</li>
+  <li>When you need auto parts, be sure to visit AutoParts Flamingo 95 first.</li>
+</ul>
+</section>
+
+<!-- PAYMENTS -->
+<section id="payroll">
+<h2>Payment Options</h2>
+<p>We provide safe and reliable payment options for your orders, including credit/debit cards, PayPal, and other online payment methods. Your transactions are protected and processed securely.</p>
+</section>
+
+<!-- WAREHOUSES -->
+<section id="warehouses" style="text-align:center; padding:40px 20px;">
+    <h3 style="margin-bottom:10px; font-weight:500; text-transform:uppercase; color:#555;">We serve our customers across USA from</h3>
+    <h2 style="margin-bottom:30px; font-size:2em; font-weight:bold;">Our Local Warehouses Listed Below</h2>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; max-width:900px; margin:0 auto;">
+        <div style="width:150px; margin:5px 10px; text-align:left;">
+            <p>Alabama</p>
+            <p>California</p>
+            <p>Columbia</p>
+            <p>Idaho</p>
+            <p>Kansas</p>
+            <p>Maryland</p>
+            <p>Mississippi</p>
+            <p>Nevada</p>
+            <p>New York</p>
+            <p>Oklahoma</p>
+            <p>South Carolina</p>
+            <p>Utah</p>
+            <p>West Virginia</p>
+        </div>
+        <div style="width:150px; margin:5px 10px; text-align:left;">
+            <p>Alaska</p>
+            <p>Colorado</p>
+            <p>Florida</p>
+            <p>Illinois</p>
+            <p>Kentucky</p>
+            <p>Massachusetts</p>
+            <p>Missouri</p>
+            <p>New Hampshire</p>
+            <p>North Carolina</p>
+            <p>Oregon</p>
+            <p>South Dakota</p>
+            <p>Vermont</p>
+            <p>Wisconsin</p>
+        </div>
+        <div style="width:150px; margin:5px 10px; text-align:left;">
+            <p>Arizona</p>
+            <p>Connecticut</p>
+            <p>Georgia</p>
+            <p>Indiana</p>
+            <p>Louisiana</p>
+            <p>Michigan</p>
+            <p>Montana</p>
+            <p>New Jersey</p>
+            <p>North Dakota</p>
+            <p>Pennsylvania</p>
+            <p>Tennessee</p>
+            <p>Virginia</p>
+            <p>Wyoming</p>
+        </div>
+        <div style="width:150px; margin:5px 10px; text-align:left;">
+            <p>Arkansas</p>
+            <p>Delaware</p>
+            <p>Hawaii</p>
+            <p>Iowa</p>
+            <p>Maine</p>
+            <p>Minnesota</p>
+            <p>Nebraska</p>
+            <p>New Mexico</p>
+            <p>Ohio</p>
+            <p>Rhode Island</p>
+            <p>Texas</p>
+            <p>Washington</p>
+        </div>
+    </div>
+    <div style="margin-top:20px;">
+        <img src="https://i.imgur.com/m7bkbre.png" alt="USA Warehouses Map" style="max-width:100%; height:auto;">
+    </div>
+</section>
+
+<section id="warehouses" style="text-align:center; padding:40px 20px;">
+    <h2 style="margin-bottom:30px; font-size:2em; font-weight:bold;">Manufacturers we deal with</h2>
+    <div style="margin-top:20px;">
+        <a href="https://autopartsflamingo95.com/body">
+            <img src="https://i.imgur.com/v49QPe4.png" alt="USA Manufacturers" style="max-width:110%; height:auto;">
+        </a>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="contact-info">
+    <p><strong>Company:</strong> AutoParts Flamingo 95</p>
+    <p><strong>Address:</strong> 11206 Nw 53rd Ln, Miami, FL 33178</p>
+    <p><strong>Toll Free:</strong> 1-888-388-2076</p>
+    <p><strong>Phone:</strong> 1-645-207-8619</p>
+    <p><strong>Email:</strong> <a href="mailto:info@autopartsflamingo95.com">info@autopartsflamingo95.com</a></p>
+  </div>
+
+  <form id="contactForm" class="contact-form" onsubmit="alert('Message submitted!'); return false;">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Mobile Phone Number (optional)</label>
+    <input type="tel" id="phone" name="phone" placeholder="(xxx) xxx-xxxx">
+
+    <p class="sms-consent">
+      By entering your phone number, you agree to receive informational SMS messages
+      (order updates, account notifications, etc.) from AutoParts Flamingo 95.
+      Message frequency varies. Message and data rates may apply.
+      For help, reply HELP or email
+      <a href="mailto:info@autopartsflamingo95.com">info@autopartsflamingo95.com</a>.
+      You can opt out at any time by replying STOP.
+      Our <a href="https://autopartsflamingo95.com/terms" target="_blank">Terms & Conditions</a>
+      and <a href="https://autopartsflamingo95.com/privacy" target="_blank">Privacy Policy</a> are below.
+    </p>
+
+    <label for="message">Message*</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <div class="consent">
+      <input type="checkbox" id="consent" required>
+      <label for="consent">
+        I understand and agree with the Privacy Policy and Terms of Use and consent to receiving electronic communications,
+        including newsletters, promotions, and updates from AutoParts Flamingo 95. I am aware that I can unsubscribe at any time.*
+      </label>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- MOBILE SMS PRIVACY POLICY -->
+  <div class="mobile-privacy-policy" style="margin-top:30px; padding:15px; background:#111; color:#ccc; border-radius:8px;">
+    <h3 style="color:#00bfff;">Messaging Terms & Conditions</h3>
+    <p>
+      You agree to receive informational messages (order updates, account notifications, etc.) from AutoParts Flamingo 95.
+      Message frequency varies. Message and data rates may apply.
+      For help, reply HELP or email <a href="mailto:info@autopartsflamingo95.com" style="color:#00bfff;">info@autopartsflamingo95.com</a>.
+      You can opt out at any time by replying STOP.
+    </p>
+
+    <h3 style="color:#00bfff;">Mobile SMS Messaging Privacy Policy</h3>
+    <p>
+      <strong>Information collected:</strong> We may collect your name, phone number, and email address.<br>
+      <strong>Use of information:</strong> We use this information to perform requested services, including billing,
+      customer service, order updates, and administrative notices.<br>
+      <strong>Sharing of information:</strong> We may share information with payment processors, legal authorities, and partners
+      to fulfill normal business operations. We do not sell, rent, or trade your information for promotional purposes.<br>
+      <strong>Opt-out rights:</strong> You may text STOP at any time to opt out of SMS communications, or HELP to receive assistance.
+      Message frequency may vary. Messaging and data rates may apply.<br>
+      Your mobile information will not be shared with third parties for marketing purposes.
+      All policies comply with CTIA guidelines 5.2.1.
+      To have your information removed, please contact us at
+      <a href="mailto:info@autopartsflamingo95.com" style="color:#00bfff;">info@autopartsflamingo95.com</a> or by mail.
+    </p>
+  </div>
+</section>
+
+<!-- POLICIES -->
+<section id="refund-policy">
+  <h2>Refund & Return Policy</h2>
+  <p>Refunds are accepted within <strong>14 days of purchase</strong> with proof of receipt. Items must be unused, in original packaging, and accompanied by the receipt.</p>
+
+  <p>Special orders and certain clearance items may be <strong>non-refundable</strong>. Please contact our support team before returning such products.</p>
+
+  <p>Approved refunds will be issued to the <strong>original payment method</strong> within <strong>5–10 business days</strong> after inspection of the returned item. In some cases, store credit may be offered instead of a refund. Customers are responsible for <strong>return shipping costs</strong>, unless the return is due to our error (wrong item shipped, defective product, etc.).</p>
+
+  <p>Certain products may be covered under a manufacturer’s warranty. Warranty information is provided with qualifying items at the time of purchase.</p>
+
+  <p><em>We are committed to ensuring a fair and transparent process for all returns and refunds.</em></p>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy">
+  <h2>Privacy Policy</h2>
+  <p>We are committed to protecting your privacy and safeguarding your personal information. Any data you provide, including contact details and payment information, is used solely for processing your orders and improving our services.</p>
+  <p>We do not sell, rent, or share customer data with third parties without consent, except as required by law. Our website may use cookies to enhance your browsing experience, and you may choose to disable them in your browser settings.</p>
+  <p>By using our website, you consent to the collection and use of information in accordance with this policy.</p>
+</section>
+
+<!-- TERMS -->
+<section id="terms">
+  <h2>Terms & Conditions</h2>
+  <p>By accessing and using our website, you agree to comply with the following terms and conditions. These terms govern all purchases, use of services, and interactions with AutoParts Flamingo 95.</p>
+  <ul>
+    <li>All orders are subject to availability and confirmation of payment.</li>
+    <li>Prices are subject to change without notice, but confirmed orders will not be affected.</li>
+    <li>We are not responsible for delays or damages caused by shipping carriers.</li>
+    <li>Our liability is limited to the value of the products purchased.</li>
+    <li>These terms are governed by applicable local and federal laws.</li>
+  </ul>
+  <p>By placing an order, you acknowledge that you have read, understood, and agreed to these terms.</p>
+</section>
+
+<!-- LOGIN / REGISTER MODAL -->
+<div id="loginModal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <h3>Login</h3>
+      <div class="form-box">
+        <label>Email*</label>
+        <input type="email">
+        <label>Password*</label>
+        <input type="password">
+        <button type="button" onclick="alert('Wrong password')">Login</button>
+      </div>
+      <span class="toggle-link" id="showRegister">Don't have an account? Register</span>
+    </div>
+
+    <!-- Register Form -->
+    <div id="registerForm" style="display:none;">
+      <h3>Register</h3>
+      <div class="form-box">
+        <label>Name*</label>
+        <input type="text">
+        <label>Email*</label>
+        <input type="email">
+        <label>Password*</label>
+        <input type="password">
+        <label>Confirm Password*</label>
+        <input type="password">
+        <button type="button" onclick="alert('Registration submitted')">Register</button>
+      </div>
+      <span class="toggle-link" id="showLogin">Already have an account? Login</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  &copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved.
+  <a href="privacy">Privacy Policy</a> |
+  <a href="term">Terms & Conditions</a> |
+  <a href="#refund-policy">Refund Policy</a>
+</footer>
+
+
+<script>
+// Set year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Modal logic
+const navLogin = document.getElementById('navLogin');
+const loginModal = document.getElementById('loginModal');
+const closeModal = document.querySelector('#loginModal .close');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const showRegister = document.getElementById('showRegister');
+const showLogin = document.getElementById('showLogin');
+
+navLogin.onclick = () => loginModal.style.display = 'flex';
+closeModal.onclick = () => loginModal.style.display = 'none';
+window.onclick = e => { if(e.target === loginModal) loginModal.style.display = 'none'; }
+
+showRegister.onclick = () => { loginForm.style.display='none'; registerForm.style.display='block'; }
+showLogin.onclick = () => { registerForm.style.display='none'; loginForm.style.display='block'; }
+</script>
+
+</body>
+</html>

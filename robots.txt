@@ -1,0 +1,11 @@
+# Allow all search engines
+User-agent: *
+Disallow:
+
+# Sitemap location
+Sitemap: https://qikautoparts.com/sitemap.xml
+
+# Optional: Block sensitive pages if any
+# Disallow: /admin/
+# Disallow: /login/
+# Disallow: /private/

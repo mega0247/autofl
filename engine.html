@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Body Parts - AutoParts Flamingo 95</title>
+<meta name="description" content="Shop Body Parts at AutoParts Flamingo 95 — high-quality replacement and OEM body parts for all vehicles.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 200; }
+header .wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; }
+.logo { position: relative; display: inline-block; }
+.logo img { height: 100px; width: auto; display: block; }
+.logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+header nav { display: flex; align-items: center; gap: 18px; }
+header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+.dropdown { position: relative; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+.dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+.dropdown-content a:hover { background: var(--accent); color: #fff; }
+.dropdown:hover .dropdown-content { display: block; }
+.cart-container { display: flex; flex-direction: column; align-items: center; position: relative; }
+.cart-indicator { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: bold; color: #fff; cursor: pointer; }
+.cart-indicator i { font-size: 20px; position: relative; }
+.cart-count { position: absolute; top: -8px; right: -10px; background: #1a73e8; color: #fff; font-size: 12px; font-weight: bold; border-radius: 50%; padding: 2px 6px; }
+.cart-text { color: #ccc; font-weight: normal; }
+.cart-value { color: #fff; font-weight: bold; margin-left: 4px; }
+.checkout-btn, .empty-cart-btn { margin-top: 10px; background: var(--accent); color: #fff; padding: 8px 14px; border: none; border-radius: 5px; font-weight: bold; cursor:pointer; font-size: 13px; width: 100%; }
+.checkout-btn:hover, .empty-cart-btn:hover { background: #c92f3d; }
+.cart-preview { display: none; position: absolute; top: 60px; right: 0; background: #fff; color: #222; min-width: 280px; max-height: 360px; overflow-y: auto; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 999; padding: 8px; }
+.cart-preview.active { display: block; }
+.cart-item { display:flex; align-items:center; gap:8px; padding:6px 4px; border-bottom: 1px solid #eee; }
+.cart-item img { width:44px; height:44px; object-fit:cover; border-radius:4px; }
+.cart-item .ci-text { font-size: 13px; color: #333; }
+.cart-empty { padding: 8px; color: #666; font-size: 13px; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 20px; }
+.product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; background: #fafafa; transition: transform .2s; padding-bottom: 10px; }
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #f4f4f4; display: block; margin: 0 auto; }
+.product-card h3 { margin: 12px 0 8px; font-size: 1.2rem; }
+.product-card p { font-size: 0.95rem; padding: 0 12px 8px; color: var(--muted); }
+.price { font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; }
+
+/* 🔧 Compact quantity box fix */
+.product-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.product-actions input[type="number"],
+.qty-input {
+  width: 50px;
+  padding: 4px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination { text-align: center; margin-top: 30px; }
+.pagination a { display: inline-block; margin: 0 5px; padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; color: var(--brand); text-decoration: none; font-weight: bold; cursor:pointer; }
+.pagination a.active, .pagination a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+footer a { color: #fff; text-decoration: underline; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; max-width: 400px; position: relative; }
+.close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #666; }
+.modal-content h2 { margin-bottom: 15px; font-size: 1.4rem; color: var(--brand); }
+.modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+.modal-content button { background: var(--accent); color: #fff; padding: 10px; border: none; border-radius: 5px; width: 100%; cursor: pointer; font-weight: bold; }
+.modal-content button:hover { background: #c92f3d; }
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="QikAuto Parts Logo">
+        </a>
+        <div class="logo-text"></div>
+      </div>
+<nav>
+<a href="index#about">About</a>
+<a href="index#products">Products</a>
+<a href="index#services">Services</a>
+<a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+<a href="index#contact">Contact</a>
+<a href="index#refund-policy">Policies</a>
+<a href="index#terms">Terms</a>
+<a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+<div class="dropdown">
+<span class="dropdown-btn"><span class="departments__button-title">Shop By Category</span> <i class="fa-solid fa-chevron-down"></i></span>
+<div class="dropdown-content">
+<a href="body">Body Parts</a>
+<a href="engine">Engine Parts</a>
+<a href="brake">Brake Parts</a>
+<a href="electrical">Electrical, Lighting and Body Parts</a>
+<a href="index#contact">Brake Systems</a>
+<a href="index#contact">Chassis & Suspension</a>
+<a href="index#contact">Cooling & Heating</a>
+<a href="index#contact">Engines & Components</a>
+<a href="index#contact">Exhaust</a>
+<a href="index#contact">Exterior & Accessories</a>
+<a href="index#contact">Fasteners & Hardware</a>
+<a href="index#contact">Fittings & Hoses</a>
+</div>
+</div>
+<div class="cart-container">
+<div class="cart-indicator">
+<i class="fa-solid fa-cart-shopping"></i>
+<span class="cart-count">0</span>
+<span class="cart-text">Shopping Cart</span>
+<span class="cart-value">$0.00</span>
+</div>
+<div class="cart-preview" id="cartPreview">
+<div class="cart-empty">Your cart is empty</div>
+</div>
+</div>
+</nav>
+</div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+  <section id="engine-parts">
+    <h1>Engine Parts</h1>
+    <p>Find premium replacement and OEM engine parts designed for performance, durability, and efficiency.</p>
+
+    <style>
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px; /* spacing between product cards */
+      }
+      .product-card img {
+        width: 100%;
+        height: auto;
+      }
+      .product-actions {
+        margin-top: 10px;
+      }
+      .product-actions input {
+        width: 50px;
+        margin-right: 10px;
+      }
+      .product-actions button {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    </style>
+
+    <!-- PAGE 1 -->
+    <div class="products page" id="page1">
+      <div class="product-grid">
+        <!-- Product Cards 1-18 for Page 1 -->
+        <div class="product-card"><img src="https://i.imgur.com/XxLKCPi.jpeg"><h3>Part Number: 84825203</h3><p>ACDelco GM OE/GM Genuine Parts.</p><span class="price">$64.62</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/Cudf8dQ.jpeg"><h3>Part Number: 5C1884</h3><p>Wells Vehicle Electronics.</p><span class="price">$95.50</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/CtHYcD2.jpeg"><h3>Part Number: F25201</h3><p>Harmonic Balancer, Chevy Corvette, LS, 5.7, 6.0, 6.2L, Internal Balance.</p><span class="price">$237.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/q7JCTh9.jpeg"><h3>Part Number: F5203</h3><p>Camshaft, BTR, Truck Norris Cam, 212 int.</p><span class="price">$464.62</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/d2eqH9c.jpeg"><h3>Part Number: F505FT</h3><p>Cylinder Head, Assembled, 180cc, Hydraulic Flat Tappet, 2.020 in./1.600 in.</p><span class="price">$479.00</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/YF5EcvI.jpeg"><h3>Part Number: S4730</h3><p>Oil Pan, Engine Swap, Cast Aluminum, Natural, 6.0 Quart Capacity, 4.25 in.</p><span class="price">$379.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/FLNtIY3.jpeg"><h3>Part Number: N9586</h3><p>Lifters, Hydraulic Roller, OEM Style Bar, Chevy, Small Block, LS1, Set.</p><span class="price">$553.04</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/itzUeP3.jpeg"><h3>Part Number: F6500</h3><p>Lifters, Hydraulic Roller, Ford, Set.</p><span class="price">$314.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/Z8PrvYD.jpeg"><h3>Part Number: N4992</h3><p>Lifters, Hydraulic Roller, Chevy, Set.</p><span class="price">$475.56</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/Ebvw3sR.jpeg"><h3>Part Number: S1103</h3><p>Cam and Lifters, Hydraulic Flat Tappet, Advertised Duration 288/298.</p><span class="price">$254.98</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/hv5tXZ6.jpeg"><h3>Part Number: S0132</h3><p>Lifter Guide, Hydraulic Roller Style, Plastic, Chevy, LS, Non AFM/DOD Engines, Set.</p><span class="price">$35.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/Zmes7Vm.jpeg"><h3>Part Number: S8037</h3><p>Connecting Rods, 4340, I-Beam, 12-Point, Cap Screw.</p><span class="price">$319.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/fNHfMMD.jpeg"><h3>Part Number: A9172</h3><p>Harmonic Balancer, Super Damper, Internal Balance.</p><span class="price">$439.90</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/1I5vuTI.jpeg"><h3>Part Number: A2172</h3><p>Valve Spring Kit, Platinum, Dual, Standard, Steel Retainer, 0.060.</p><span class="price">$319.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/tc1B5kR.jpeg"><h3>Part Number: P5170</h3><p>Pro LS Valve Springs, LS6 Style, 0.550 Max Lift.</p><span class="price">$79.00</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/XETikct.jpeg"><h3>Part Number: F15301</h3><p>Timing Cover, 2-Piece, Adjustable Cam Button.</p><span class="price">$186.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/IEKzlWr.jpeg"><h3>Part Number: M2634</h3><p>Timing Cover, 2-Piece, Cast Aluminum, Natural, With Cam Sensor.</p><span class="price">$158.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/hgpOVZB.jpeg"><h3>Part Number: F1481</h3><p>Timing Cover, 2-Piece, Aluminum, Polished, Chevy, Big Block, Kit.</p><span class="price">$269.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="products page" id="page2" style="display:none;">
+      <div class="product-grid">
+        <!-- Product Cards 1-18 for Page 2 -->
+        <div class="product-card"><img src="https://i.imgur.com/52rH3U7.jpeg"><h3>Part Number: F1200</h3><p>Cylinder Head, 200cc, Assembled, Non-Vortec Bolt Pattern.</p><span class="price">$489.00</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/X4JFIbr.jpeg"><h3>Part Number: C2421</h3><p>Main Bearings, H Series, 1/2 Groove, Standard Size.</p><span class="price">$123.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/FFUBd9E.jpeg"><h3>Part Number: C1004</h3><p>Combo, Cam and Springs, Duration 212/22X, Lift .552/.552.</p><span class="price">$680.94</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/ydDKOjg.jpeg"><h3>Part Number: B4003</h3><p>Pushrods, Assembled, One-Piece, 5/16.</p><span class="price">$119.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/05FsiCE.jpeg"><h3>Part Number: S1135</h3><p>Harmonic Balancer, OEM, Internal Balance, Nodular Iron.</p><span class="price">$71.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/HThLAar.jpeg"><h3>Part Number: SF185</h3><p>Ford Windsor, 185 cc Int. Runner, 64cc Chamber, 2.02 Int./1.6 Exh.</p><span class="price">$689.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/TccSvgJ.jpeg"><h3>Part Number: M3977</h3><p>Pulley Set, V-Belt, Alternator Bracket, Standard Ratio, Steel.</p><span class="price">$147.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/EIpCq0c.jpeg"><h3>Part Number: F6363</h3><p>Lifters, Hydraulic Roller, Lifter Trays, Chevy, LS, Kit.</p><span class="price">$212.38</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/aRVx6rx.jpeg"><h3>Part Number: F2035</h3><p>Cylinder Head, 180cc, Assembled.</p><span class="price">$494.00</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/OE06G1P.jpeg"><h3>Part Number: H3022</h3><p>Oil Pan, Engine Swap, Low Profile, Aluminum, Natural, 3.620.</p><span class="price">$499.95</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/za5eyhP.jpeg"><h3>Part Number: S1366</h3><p>Crankshaft, 1-Piece Seal, Internal Balance, Cast Steel, 3.480.</p><span class="price">$279.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/3DKCvqu.jpeg"><h3>Part Number: A2633</h3><p>Timing Covers, GM Genuine Parts, One-piece.</p><span class="price">$116.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/sJL87k5.jpeg"><h3>Part Number: S6600</h3><p>Timing Chain and Gears, True Roller, Double Roller, 3 Bolt.</p><span class="price">$58.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/Ef4JyyJ.jpeg"><h3>Part Number: M452</h3><p>Oil Pumps, Aluminum, Rotary, High Volume/Std. Pressure, Crankshaft Drive.</p><span class="price">$152.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/o0GTjQC.jpeg"><h3>Part Number: M1452</h3><p>Rocker Arms, 1.7 Ratio, 7/16 in. Stud, Full Roller.</p><span class="price">$357.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/eN7uEdG.jpeg"><h3>Part Number: F3100</h3><p>Cylinder Head, Race-Rite, Aluminum, Assembled, 119cc Chamber, 270cc Intake Runner.</p><span class="price">$1,449.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/pAfEaIi.jpeg"><h3>Part Number: C1511</h3><p>Cylinder Head, 180cc, Flat Tappet, Aluminum, Assembled, Ford, Small Block Windsor 289/302/351.</p><span class="price">$$494.00</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+        <div class="product-card"><img src="https://i.imgur.com/wmvYv4B.jpeg"><h3>Part Number: C1744</h3><p>Cylinder Head, Vortec, Cast Iron, Assembled, 64cc Chamber, 171cc Intake Runner,.</p><span class="price">$549.99</span><div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div></div>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <a href="#" onclick="showPage(1, event)" class="active">1</a>
+      <a href="#" onclick="showPage(2, event)">2</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+&copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/term">Terms & Conditions</a> | <a href="/refund">Refund Policy</a>
+</footer>
+
+<div id="loginModal" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+<h2>Login</h2>
+<input type="text" placeholder="Email">
+<input type="password" placeholder="Password">
+<button type="button" onclick="alert('Wrong password')">Login</button>
+<p style="margin-top:10px;font-size:0.9rem;">Don’t have an account? <a href="#">Register</a></p>
+</div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const STORAGE_KEY = "shoppingCart_v2";
+let cartItems = [];
+
+function loadCart(){try{cartItems=JSON.parse(localStorage.getItem(STORAGE_KEY))||[]}catch{cartItems=[]}}
+function saveCart(){localStorage.setItem(STORAGE_KEY,JSON.stringify(cartItems))}
+function escapeHtml(text){return String(text).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]))}
+function updateTotalsAndUI(){const c=cartItems.reduce((s,i)=>s+(i.qty||0),0),t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);document.querySelectorAll(".cart-count").forEach(e=>e.textContent=c);document.querySelectorAll(".cart-value").forEach(e=>e.textContent="$"+t.toFixed(2));renderCartPreview();}
+function renderCartPreview(){const p=document.getElementById("cartPreview");p.innerHTML="";if(!cartItems.length){p.innerHTML='<div class="cart-empty">Your cart is empty</div>';return}cartItems.forEach(i=>{const d=document.createElement("div");d.className="cart-item";d.innerHTML=`<img src="${i.img||''}" alt=""><div class="ci-text"><div style="font-weight:bold">${escapeHtml(i.title)}</div><div style="font-size:12px;color:#666">${i.qty} x $${(i.price||0).toFixed(2)}</div></div>`;p.appendChild(d)});const t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);const f=document.createElement("div");f.style.padding="8px";f.style.textAlign="right";f.style.fontWeight="bold";f.textContent="Total: $"+t.toFixed(2);p.appendChild(f);const b=document.createElement("button");b.textContent="Checkout";b.className="checkout-btn";b.addEventListener("click",()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")});p.appendChild(b);const e=document.createElement("button");e.textContent="Empty Cart";e.className="empty-cart-btn";e.addEventListener("click",()=>{cartItems=[];saveCart();updateTotalsAndUI()});p.appendChild(e);}
+function addToCart(i){const e=cartItems.find(x=>x.id===i.id);if(e)e.qty+=i.qty||1;else cartItems.push({...i,qty:i.qty||1});saveCart();updateTotalsAndUI();}
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".product-card").forEach(c=>{const b=c.querySelector("button");const qty=c.querySelector(".qty-input");b?.addEventListener("click",()=>{const quantity=parseInt(qty?.value)||1;const i={id:c.dataset.id||c.querySelector("h3").textContent,title:c.querySelector("h3").textContent,price:parseFloat(c.querySelector(".price")?.textContent.replace('$',''))||0,img:c.querySelector("img")?.src,qty:quantity};addToCart(i)})})});
+const cartIndicator=document.querySelector(".cart-indicator"),cartPreview=document.getElementById("cartPreview"),cartContainer=document.querySelector(".cart-container");
+cartIndicator.addEventListener("click",e=>{e.stopPropagation();cartPreview.classList.toggle("active")});
+cartPreview.addEventListener("click",e=>e.stopPropagation());
+document.addEventListener("click",e=>{if(!cartContainer.contains(e.target))cartPreview.classList.remove("active")});
+const modal=document.getElementById("loginModal"),navLogin=document.getElementById("navLogin"),spanClose=document.querySelector(".modal .close");
+navLogin.onclick=()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")};
+spanClose.onclick=()=>{modal.style.display="none";modal.setAttribute("aria-hidden","true")};
+window.onclick=e=>{if(e.target==modal){modal.style.display="none";modal.setAttribute("aria-hidden","true")}};
+(function init(){loadCart();updateTotalsAndUI()})();
+
+// --- Pagination Logic ---
+function showPage(page,event){
+  if(event)event.preventDefault();
+  document.querySelectorAll(".products.page").forEach(pg=>pg.style.display="none");
+  const selected=document.getElementById("page"+page);
+  if(selected)selected.style.display="grid";
+  document.querySelectorAll(".pagination a").forEach(a=>a.classList.remove("active"));
+  if(event?.target)event.target.classList.add("active");
+  document.querySelector("#body-parts")?.scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoParts Flamingo 95</title>
+  <meta name="description" content="AutoParts Flamingo 95 — auto parts supply, repair, and maintenance solutions. Professional service, quality parts, and secure payments.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+    main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+    header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 20; }
+    header .wrap { width: 100%; margin: 0; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+    .logo { position: relative; display: inline-block; }
+    .logo img { height: 100px; width: auto; display: block; }
+    .logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+    header nav { display: flex; align-items: center; gap: 18px; }
+    header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+    header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+    .dropdown { position: relative; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+    .dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+    .dropdown-content a:hover { background: var(--accent); color: #fff; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-btn i { transition: transform 0.3s; }
+    .dropdown:hover .dropdown-btn i { transform: rotate(180deg); }
+    .hero { background: url('https://i.imgur.com/KPmCXYH.jpeg') no-repeat center/cover; color: #fff; text-align: center; padding: 100px 20px; }
+    .hero h1 { font-size: 2.5rem; text-shadow: 2px 2px 6px rgba(0,0,0,.7); }
+    .hero p { max-width: 700px; margin: 15px auto; font-size: 1.1rem; }
+    h2 { margin-bottom: 18px; color: var(--brand); font-size: 1.8rem; }
+    h3 { color: var(--brand); margin-top: 25px; }
+    footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+    footer a { color: #fff; text-decoration: underline; }
+    .privacy-container h2, .privacy-container h3 { margin-top: 20px; }
+    .privacy-container p, .privacy-container ul { margin-bottom: 15px; }
+    ul { list-style: disc inside; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="QikAuto Parts Logo">
+        </a>
+      </div>
+      <nav>
+        <a href="index#about">About</a>
+        <a href="index#products">Products</a>
+        <a href="index#services">Services</a>
+        <a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+        <a href="index#contact">Contact</a>
+        <a href="index#refund-policy">Policies</a>
+        <a href="index#terms">Terms</a>
+        <a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+        <div class="dropdown">
+          <span class="dropdown-btn">
+            <span class="departments__button-title">Shop By Category</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+          <div class="dropdown-content">
+            <a href="body">Body Parts</a>
+            <a href="engine">Engine Parts</a>
+            <a href="brake">Brake Parts</a>
+            <a href="electrical">Electrical, Lighting and Body Parts</a>
+            <a href="index#contact">Brake Systems</a>
+            <a href="index#contact">Chassis & Suspension</a>
+            <a href="index#contact">Cooling & Heating</a>
+            <a href="index#contact">Engines & Components</a>
+            <a href="index#contact">Exhaust</a>
+            <a href="index#contact">Exterior & Accessories</a>
+            <a href="index#contact">Fasteners & Hardware</a>
+            <a href="index#contact">Fittings & Hoses</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>PRIVACY POLICY</h1>
+    <p>Learn how AutoParts Flamingo 95 collects, uses, and protects your personal information.</p>
+  </section>
+
+  <main>
+    <div class="privacy-container">
+      <h1>Privacy Policy</h1>
+      <p><strong>Last updated:</strong> September 17, 2025</p>
+
+      <p>This Privacy Policy explains how we collect, use, and disclose your personal information when you use our Service. By using our Service, you consent to the terms outlined in this policy.</p>
+
+      <h2>Interpretation and Definitions</h2>
+      <h3>Definitions</h3>
+      <ul>
+        <li><strong>Account</strong> – a unique account created for you to access our Service.</li>
+        <li><strong>Company</strong> – AutoParts Flamingo 95.</li>
+        <li><strong>Cookies</strong> – small files placed on your device that store browsing history and preferences.</li>
+        <li><strong>Country</strong> – USA.</li>
+        <li><strong>Device</strong> – any device used to access the Service.</li>
+        <li><strong>Personal Data</strong> – any information relating to an identified or identifiable individual.</li>
+        <li><strong>Service</strong> – refers to our Website.</li>
+        <li><strong>Service Provider</strong> – any third party that processes data on our behalf.</li>
+        <li><strong>Website</strong> – AutoParts Flamingo 95.</li>
+        <li><strong>You</strong> – the individual accessing or using the Service.</li>
+      </ul>
+
+      <h2>Collecting and Using Your Personal Data</h2>
+      <h3>Types of Data Collected</h3>
+      <ul>
+        <li>Email address</li>
+        <li>First and last name</li>
+        <li>Phone number</li>
+        <li>Address, State, ZIP/Postal code, City</li>
+        <li>Usage Data</li>
+      </ul>
+
+      <h3>Usage Data</h3>
+      <p>Usage Data is collected automatically when using our Service.</p>
+
+      <h3>Tracking Technologies and Cookies</h3>
+      <p>We use cookies and similar technologies to improve your experience and analyze site traffic.</p>
+
+      <h2>Use of Your Personal Data</h2>
+      <ul>
+        <li>To provide and maintain our Service</li>
+        <li>To manage your Account</li>
+        <li>To contact you regarding updates or offers</li>
+        <li>For business transfers and legal obligations</li>
+      </ul>
+
+      <h2>Retention & Security</h2>
+      <p>Your personal data is stored only as long as necessary and protected using industry-standard methods.</p>
+
+      <h2>Children's Privacy</h2>
+      <p>We do not knowingly collect data from children under 13. If we become aware of such data collection, we take steps to delete it promptly.</p>
+
+      <h2>Links to Other Websites</h2>
+      <p>Our Service may link to third-party websites. We are not responsible for their privacy practices. Please review their policies independently.</p>
+
+      <h2>Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time and will post changes on this page with the new date.</p>
+
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:info@autopartsflamingo95.com">info@autopartsflamingo95.com</a></p>
+
+      <!-- ✅ Added Mobile SMS Privacy Section -->
+      <h2>Messaging Terms & Conditions</h2>
+      <p>By entering your phone number or communicating with us via SMS, you agree to receive informational messages (order updates, account notifications, etc.) from AutoParts Flamingo 95. Message frequency varies. Message and data rates may apply. For help, reply HELP or email us at <a href="mailto:info@autopartsflamingo95.com">info@autopartsflamingo95.com</a>. You can opt out at any time by replying STOP.</p>
+
+      <h2>Mobile SMS Messaging Privacy Policy</h2>
+      <p><strong>Information collected:</strong> We may collect your name, phone number, and email address when you communicate with us via SMS or our website.</p>
+      <p><strong>Use of information:</strong> We use collected information to perform services requested, including customer service, appointment reminders, and administrative messages.</p>
+      <p><strong>Sharing of information:</strong> We may share information with service providers who help us perform our operations (e.g., payment processors, logistics partners) but we do not sell, rent, or trade your data for promotional purposes.</p>
+      <p><strong>Opt-out:</strong> You can text STOP at any time to stop receiving SMS messages. Text HELP for assistance. Messaging and data rates may apply.</p>
+      <p><strong>Privacy Commitment:</strong> Your mobile information will never be shared with third parties for marketing purposes. We follow CTIA guidelines 5.2.1 to ensure compliance. To request removal of your information, contact us at <a href="mailto:info@autopartsflamingo95.com">info@autopartsflamingo95.com</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved.
+    <a href="privacy">Privacy Policy</a> |
+    <a href="term">Terms & Conditions</a> |
+    <a href="#refund-policy">Refund Policy</a>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

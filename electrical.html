@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Body Parts - AutoParts Flamingo 95</title>
+<meta name="description" content="Shop Body Parts at AutoParts Flamingo 95 — high-quality replacement and OEM body parts for all vehicles.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 200; }
+header .wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; flex-wrap: wrap; }
+.logo { position: relative; display: inline-block; }
+.logo img { height: 100px; width: auto; display: block; }
+.logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+header nav { display: flex; align-items: center; gap: 18px; }
+header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+.dropdown { position: relative; }
+.dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+.dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+.dropdown-content a:hover { background: var(--accent); color: #fff; }
+.dropdown:hover .dropdown-content { display: block; }
+.cart-container { display: flex; flex-direction: column; align-items: center; position: relative; }
+.cart-indicator { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: bold; color: #fff; cursor: pointer; }
+.cart-indicator i { font-size: 20px; position: relative; }
+.cart-count { position: absolute; top: -8px; right: -10px; background: #1a73e8; color: #fff; font-size: 12px; font-weight: bold; border-radius: 50%; padding: 2px 6px; }
+.cart-text { color: #ccc; font-weight: normal; }
+.cart-value { color: #fff; font-weight: bold; margin-left: 4px; }
+.checkout-btn, .empty-cart-btn { margin-top: 10px; background: var(--accent); color: #fff; padding: 8px 14px; border: none; border-radius: 5px; font-weight: bold; cursor:pointer; font-size: 13px; width: 100%; }
+.checkout-btn:hover, .empty-cart-btn:hover { background: #c92f3d; }
+.cart-preview { display: none; position: absolute; top: 60px; right: 0; background: #fff; color: #222; min-width: 280px; max-height: 360px; overflow-y: auto; border-radius: 6px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.25); z-index: 999; padding: 8px; }
+.cart-preview.active { display: block; }
+.cart-item { display:flex; align-items:center; gap:8px; padding:6px 4px; border-bottom: 1px solid #eee; }
+.cart-item img { width:44px; height:44px; object-fit:cover; border-radius:4px; }
+.cart-item .ci-text { font-size: 13px; color: #333; }
+.cart-empty { padding: 8px; color: #666; font-size: 13px; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 20px; }
+.product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; background: #fafafa; transition: transform .2s; padding-bottom: 10px; }
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #f4f4f4; display: block; margin: 0 auto; }
+.product-card h3 { margin: 12px 0 8px; font-size: 1.2rem; }
+.product-card p { font-size: 0.95rem; padding: 0 12px 8px; color: var(--muted); }
+.price { font-weight: bold; color: var(--accent); margin-bottom: 10px; display: block; }
+
+/* 🔧 Compact quantity box fix */
+.product-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.product-actions input[type="number"],
+.qty-input {
+  width: 50px;
+  padding: 4px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination { text-align: center; margin-top: 30px; }
+.pagination a { display: inline-block; margin: 0 5px; padding: 8px 14px; border: 1px solid #ddd; border-radius: 4px; color: var(--brand); text-decoration: none; font-weight: bold; cursor:pointer; }
+.pagination a.active, .pagination a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+footer a { color: #fff; text-decoration: underline; }
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.modal-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; max-width: 400px; position: relative; }
+.close { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #666; }
+.modal-content h2 { margin-bottom: 15px; font-size: 1.4rem; color: var(--brand); }
+.modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+.modal-content button { background: var(--accent); color: #fff; padding: 10px; border: none; border-radius: 5px; width: 100%; cursor: pointer; font-weight: bold; }
+.modal-content button:hover { background: #c92f3d; }
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="QikAuto Parts Logo">
+        </a>
+        <div class="logo-text"></div>
+      </div>
+<nav>
+<a href="index#about">About</a>
+<a href="index#products">Products</a>
+<a href="index#services">Services</a>
+<a href="index.html#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+<a href="index#contact">Contact</a>
+<a href="index#refund-policy">Policies</a>
+<a href="index#terms">Terms</a>
+<a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+<div class="dropdown">
+<span class="dropdown-btn"><span class="departments__button-title">Shop By Category</span> <i class="fa-solid fa-chevron-down"></i></span>
+<div class="dropdown-content">
+<a href="body">Body Parts</a>
+<a href="engine">Engine Parts</a>
+<a href="brake">Brake Parts</a>
+<a href="electrical">Electrical, Lighting and Body Parts</a>
+<a href="index#contact">Brake Systems</a>
+<a href="index#contact">Chassis & Suspension</a>
+<a href="index#contact">Cooling & Heating</a>
+<a href="index#contact">Engines & Components</a>
+<a href="index#contact">Exhaust</a>
+<a href="index#contact">Exterior & Accessories</a>
+<a href="index#contact">Fasteners & Hardware</a>
+<a href="index#contact">Fittings & Hoses</a>
+</div>
+</div>
+<div class="cart-container">
+<div class="cart-indicator">
+<i class="fa-solid fa-cart-shopping"></i>
+<span class="cart-count">0</span>
+<span class="cart-text">Shopping Cart</span>
+<span class="cart-value">$0.00</span>
+</div>
+<div class="cart-preview" id="cartPreview">
+<div class="cart-empty">Your cart is empty</div>
+</div>
+</div>
+</nav>
+</div>
+</header>
+
+<!-- MAIN CONTENT -->
+  <main>
+    <section id="electrical-parts">
+      <h1>Electrical, Lighting & Body Parts</h1>
+      <p>Browse our extensive catalog of electrical, lighting, and related auto body parts to keep your vehicle safe and reliable.</p>
+
+      <!-- PAGE 1 -->
+      <div class="products page" id="page1">
+        <div class="product-card"><img src="https://i.imgur.com/HkAI0xc.jpeg"><h3>DRIVER SIDE HEAD LIGHT LENS AND HOUSING; WITHOUT LED</h3><p>Part Number: BDY500</p><span class="price">$205.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/cdan7wb.jpeg"><h3>MIRROR DRIVER SIDE POWER HEAT WITH SIGNAL WITH PUDDLE LIGHT</h3><p>Part Number: BDY2432</p><span class="price">$128.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/B78WX8B.jpeg"><h3>Body Control Module, Control Unit</h3><p>Part Number: HLA01090</p><span class="price">$540.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/7SENSlO.jpeg"><h3>Body Control Modules for 2011-2014 A6 QUATTRO</h3><p>Part Number: HLA01191</p><span class="price">$747.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/YlWuBr8.jpeg"><h3>Wiring Harnesses, Factory-Fit, Rear Body Light</h3><p>Part Number: AWW8067</p><span class="price">$225.15</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/KPiASMB.jpeg"><h3>Autowire Factory-Fit Wiring Harnesses for 1974-75 CAMARO</h3><p>Part Number: AWW5016</p><span class="price">$326.80</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/FejPabF.jpeg"><h3>Side View Mirrors for 2010-2016 F-250 SUPER DUTY</h3><p>Part Number: BDY1337</p><span class="price">$524.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/lKdzLsu.jpeg"><h3>SIDE DOOR POWER MIRROR; TOW TYPE; WITH HEATED GLASS</h3><p>Part Number: BDY6352</p><span class="price">$480.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/mHXCFqe.jpeg"><h3>MIRROR LH POWER HEATED 09-15 EOS POWER FOLD</h3><p>Part Number: BDY6102</p><span class="price">$224.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/PnAhpVQ.jpeg"><h3>MIRROR RH POWER HEATED 09-15 EOS POWER FOLD</h3><p>Part Number: BDY1791</p><span class="price">$238.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/PQNI5Yu.jpeg"><h3>MIRROR RH POWER HEATED 04-06 F150 W/PDL LAMP</h3><p>Part Number: BDY1968</p><span class="price">$178.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/hHk4SX2.jpeg"><h3>MIRROR RH POWER 10-11 ALTIMA PAINT TO MATCH</h3><p>Part Number: BDY2104</p><span class="price">$89.05</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/frTGx6p.jpeg"><h3>MIRROR RH POWER HEATED 09-12 1500 CHROME</h3><p>Part Number: BDY1327</p><span class="price">$168.50</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/QLK303S.jpeg"><h3>MIRROR LH POWER 06-10 EXPLORER XLT</h3><p>Part Number: BDY11432</p><span class="price">$1,236.71</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/oei89jq.jpeg"><h3>MIRROR LH POWER HEATED 06-10 FUSION</h3><p>Part Number: BDY0426</p><span class="price">$25.50</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/4xNOB8z.jpeg"><h3>MIRROR LH POWER HEATED 04-06 EXPEDITION</h3><p>Part Number: BDY3136</p><span class="price">$86.50</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/UkNyCRK.jpeg"><h3>MIRROR LH POWER HEATED 05-10 AVALON</h3><p>Part Number: BDY2001</p><span class="price">$69.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/CPkMlaK.jpeg"><h3>MIRROR RH POWER HEATED 07-14 F150 TOW TYPE</h3><p>Part Number: BDY1708</p><span class="price">$134.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+      </div>
+
+      <!-- PAGE 2 -->
+      <div class="products page" id="page2" style="display:none;">
+        <div class="product-card"><img src="https://i.imgur.com/IBQUDhR.jpeg"><h3>Headlight Conversion RetroBright LED 7in 5700K</h3><p>Part Number: HLY155</p><span class="price">$232.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/3k8vKW2.jpeg"><h3>Headlight Assembly Sealed LED 7.00in</h3><p>Part Number: HLY1255</p><span class="price">$99.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/eiEP6HR.jpeg"><h3>Headlight Conversion RetroBright 5.75in</h3><p>Part Number: HLY410</p><span class="price">$208.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/odkQ4av.jpeg"><h3>Headlight Assembly Sealed LED 5.75in</h3><p>Part Number: HLY419</p><span class="price">$99.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/qBehdfm.jpeg"><h3>Headlight Conversion Rectangular 4x6in</h3><p>Part Number: HLY679</p><span class="price">$208.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/71F3AQ3.jpeg"><h3>Headlight Assembly H4 LED 5.75in</h3><p>Part Number: HLY983</p><span class="price">$79.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/Pe7E7lO.jpeg"><h3>Headlight Door Motors Electric Kit Chevy</h3><p>Part Number: HLY512</p><span class="price">$559.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/fLOHQdA.jpeg"><h3>C3 Electric Headlight Door Kit 1968-1978 Corvette</h3><p>Part Number: HLY352</p><span class="price">$1,049.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/ovyvBz9.jpeg"><h3>Headlight Door Motors Kit Chevy</h3><p>Part Number: HLY112</p><span class="price">$649.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/6fynFX7.jpeg"><h3>Headlight Conversion RetroBright 5x7in</h3><p>Part Number: HLY279</p><span class="price">$232.95</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/gSUWWg4.jpeg"><h3>Headlight 8800 Evolution 2 LED 6.6in</h3><p>Part Number: HLY662</p><span class="price">$272.66</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/IUSpYOm.jpeg"><h3>Headlamp Assembly ECE Off-Road 7in</h3><p>Part Number: HLY185</p><span class="price">$95.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/erqjGbJ.jpeg"><h3>Headlights LED 8700 Evolution J2 Jeep</h3><p>Part Number: HLY820</p><span class="price">$651.90</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/FcEDA4o.jpeg"><h3>Headlight Assembly Projector Halo with Signal</h3><p>Part Number: HLY426</p><span class="price">$179.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/R2yO1Ef.jpeg"><h3>Headlight Door Motor Driver Side Chevy</h3><p>Part Number: HLY817</p><span class="price">$251.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/P1wVTTe.jpeg"><h3>Headlight Assemblies XB GEN II LED</h3><p>Part Number: HLY381</p><span class="price">$1,699.00</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/JgrLv6Q.jpeg"><h3>Halo Light Conversion Round 5.75in</h3><p>Part Number: HLY400</p><span class="price">$130.99</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+        <div class="product-card"><img src="https://i.imgur.com/Xv9eQlC.jpeg"><h3>Headlight LED Projector Sealed Beam 6x4in</h3><p>Part Number: HLY581</p><span class="price">$286.00</span>
+          <div class="product-actions"><input type="number" value="1" min="1"><button class="add-to-cart">Add to Cart</button></div>
+        </div>
+      </div>
+
+    <div class="pagination">
+      <a href="#" onclick="showPage(1, event)" class="active">1</a>
+      <a href="#" onclick="showPage(2, event)">2</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+&copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved. | <a href="/privacy">Privacy Policy</a> | <a href="/term">Terms & Conditions</a> | <a href="/refund">Refund Policy</a>
+</footer>
+
+<div id="loginModal" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+<h2>Login</h2>
+<input type="text" placeholder="Email">
+<input type="password" placeholder="Password">
+<button type="button" onclick="alert('Wrong password')">Login</button>
+<p style="margin-top:10px;font-size:0.9rem;">Don’t have an account? <a href="#">Register</a></p>
+</div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const STORAGE_KEY = "shoppingCart_v2";
+let cartItems = [];
+
+function loadCart(){try{cartItems=JSON.parse(localStorage.getItem(STORAGE_KEY))||[]}catch{cartItems=[]}}
+function saveCart(){localStorage.setItem(STORAGE_KEY,JSON.stringify(cartItems))}
+function escapeHtml(text){return String(text).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]))}
+function updateTotalsAndUI(){const c=cartItems.reduce((s,i)=>s+(i.qty||0),0),t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);document.querySelectorAll(".cart-count").forEach(e=>e.textContent=c);document.querySelectorAll(".cart-value").forEach(e=>e.textContent="$"+t.toFixed(2));renderCartPreview();}
+function renderCartPreview(){const p=document.getElementById("cartPreview");p.innerHTML="";if(!cartItems.length){p.innerHTML='<div class="cart-empty">Your cart is empty</div>';return}cartItems.forEach(i=>{const d=document.createElement("div");d.className="cart-item";d.innerHTML=`<img src="${i.img||''}" alt=""><div class="ci-text"><div style="font-weight:bold">${escapeHtml(i.title)}</div><div style="font-size:12px;color:#666">${i.qty} x $${(i.price||0).toFixed(2)}</div></div>`;p.appendChild(d)});const t=cartItems.reduce((s,i)=>s+(i.qty||0)*(i.price||0),0);const f=document.createElement("div");f.style.padding="8px";f.style.textAlign="right";f.style.fontWeight="bold";f.textContent="Total: $"+t.toFixed(2);p.appendChild(f);const b=document.createElement("button");b.textContent="Checkout";b.className="checkout-btn";b.addEventListener("click",()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")});p.appendChild(b);const e=document.createElement("button");e.textContent="Empty Cart";e.className="empty-cart-btn";e.addEventListener("click",()=>{cartItems=[];saveCart();updateTotalsAndUI()});p.appendChild(e);}
+function addToCart(i){const e=cartItems.find(x=>x.id===i.id);if(e)e.qty+=i.qty||1;else cartItems.push({...i,qty:i.qty||1});saveCart();updateTotalsAndUI();}
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".product-card").forEach(c=>{const b=c.querySelector("button");const qty=c.querySelector(".qty-input");b?.addEventListener("click",()=>{const quantity=parseInt(qty?.value)||1;const i={id:c.dataset.id||c.querySelector("h3").textContent,title:c.querySelector("h3").textContent,price:parseFloat(c.querySelector(".price")?.textContent.replace('$',''))||0,img:c.querySelector("img")?.src,qty:quantity};addToCart(i)})})});
+const cartIndicator=document.querySelector(".cart-indicator"),cartPreview=document.getElementById("cartPreview"),cartContainer=document.querySelector(".cart-container");
+cartIndicator.addEventListener("click",e=>{e.stopPropagation();cartPreview.classList.toggle("active")});
+cartPreview.addEventListener("click",e=>e.stopPropagation());
+document.addEventListener("click",e=>{if(!cartContainer.contains(e.target))cartPreview.classList.remove("active")});
+const modal=document.getElementById("loginModal"),navLogin=document.getElementById("navLogin"),spanClose=document.querySelector(".modal .close");
+navLogin.onclick=()=>{modal.style.display="block";modal.setAttribute("aria-hidden","false")};
+spanClose.onclick=()=>{modal.style.display="none";modal.setAttribute("aria-hidden","true")};
+window.onclick=e=>{if(e.target==modal){modal.style.display="none";modal.setAttribute("aria-hidden","true")}};
+(function init(){loadCart();updateTotalsAndUI()})();
+
+// --- Pagination Logic ---
+function showPage(page,event){
+  if(event)event.preventDefault();
+  document.querySelectorAll(".products.page").forEach(pg=>pg.style.display="none");
+  const selected=document.getElementById("page"+page);
+  if(selected)selected.style.display="grid";
+  document.querySelectorAll(".pagination a").forEach(a=>a.classList.remove("active"));
+  if(event?.target)event.target.classList.add("active");
+  document.querySelector("#body-parts")?.scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>

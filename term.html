@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoParts Flamingo 95</title>
+  <meta name="description" content="AutoParts Flamingo 95 — auto parts supply, repair, and maintenance solutions. Professional service, quality parts, and secure payments.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+    main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+    header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 20; }
+    header .wrap { width: 100%; margin: 0; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+    .logo { position: relative; display: inline-block; }
+    .logo img { height: 100px; width: auto; display: block; }
+    .logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+    header nav { display: flex; align-items: center; gap: 18px; }
+    header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor:pointer; }
+    header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+    .dropdown { position: relative; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+    .dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+    .dropdown-content a:hover { background: var(--accent); color: #fff; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-btn i { transition: transform 0.3s; }
+    .dropdown:hover .dropdown-btn i { transform: rotate(180deg); }
+    .hero { background: url('https://i.imgur.com/I3KVhOS.jpeg') no-repeat center/cover; color: #fff; text-align: center; padding: 100px 20px; }
+    .hero h1 { font-size: 2.5rem; text-shadow: 2px 2px 6px rgba(0,0,0,.7); }
+    .hero p { max-width: 700px; margin: 15px auto; font-size: 1.1rem; }
+    .btn { background: var(--accent); color: #fff; padding: 10px 18px; border-radius: 5px; display: inline-block; text-decoration: none; margin-top: 12px; font-weight: bold; }
+    section { margin-bottom: 50px; }
+    h2 { margin-bottom: 18px; color: var(--brand); font-size: 1.8rem; }
+    #about { text-align: center; max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    #about p { margin-bottom: 18px; font-size: 1rem; color: #333; }
+    #about ul { list-style: none; padding: 0; margin: 20px 0; }
+    #about ul li { margin: 6px 0; font-weight: bold; }
+    #about h3 { margin-top: 25px; margin-bottom: 10px; font-size: 1.4rem; color: var(--brand); }
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; background: #fafafa; transition: transform .2s; }
+    .product-card:hover { transform: translateY(-5px); }
+    .product-card img { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: #f4f4f4; display: block; margin: 0 auto; }
+    .product-card h3 { margin: 12px 0 8px; font-size: 1.2rem; }
+    .product-card p { font-size: 0.95rem; padding: 0 12px 16px; color: var(--muted); }
+    .product-card button { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:10px; }
+    .product-card button:hover { background: #c92f3d; }
+    footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+    footer a { color: #fff; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="AutoParts Flamingo 95 Logo">
+        </a>
+      </div>
+      <nav>
+        <a href="index#about">About</a>
+        <a href="index#products">Products</a>
+        <a href="index#services">Services</a>
+        <a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+        <a href="index#contact">Contact</a>
+        <a href="index#refund-policy">Policies</a>
+        <a href="index#terms">Terms</a>
+        <a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+        <div class="dropdown">
+          <span class="dropdown-btn">
+            <span class="departments__button-title">Shop By Category</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+          <div class="dropdown-content">
+            <a href="body">Body Parts</a>
+            <a href="engine">Engine Parts</a>
+            <a href="brake">Brake Parts</a>
+            <a href="electrical">Electrical, Lighting and Body Parts</a>
+            <a href="index#contact">Brake Systems</a>
+            <a href="index#contact">Chassis & Suspension</a>
+            <a href="index#contact">Cooling & Heating</a>
+            <a href="index#contact">Engines & Components</a>
+            <a href="index#contact">Exhaust</a>
+            <a href="index#contact">Exterior & Accessories</a>
+            <a href="index#contact">Fasteners & Hardware</a>
+            <a href="index#contact">Fittings & Hoses</a>
+          </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>TERMS OF USE</h1>
+    <p>Read the terms and conditions governing your use of AutoParts Flamingo 95.</p>
+  </section>
+
+  <main>
+    <div class="content-container">
+      <h1>Terms of Use</h1>
+      <p><strong>Last updated:</strong> September 17, 2025</p>
+
+      <p>Welcome to AutoParts Flamingo 95. By accessing or using our website and services, you agree to be bound by the following terms. Please read them carefully.</p>
+
+      <h2>Privacy</h2>
+      <p>Please review our <a href="/privacy">Privacy Policy</a> to understand how we collect, use, and protect your information.</p>
+
+      <h2>Electronic Communications</h2>
+      <p>By communicating with us electronically, you consent to receive emails or site postings. These communications satisfy any legal requirement to be in writing.</p>
+
+      <h2>Copyright</h2>
+      <p>All content, including text, graphics, logos, images, and software, is owned by AutoParts Flamingo 95 and protected by copyright laws.</p>
+
+      <h2>Trademarks</h2>
+      <p>All AutoParts Flamingo 95 trademarks are registered. Unauthorized use is prohibited and may result in legal action.</p>
+
+      <h2>License and Site Access</h2>
+      <p>You are granted a limited, personal license to access this site. Commercial use, copying, framing, or data mining is strictly prohibited without written consent.</p>
+
+      <h2>Your Account</h2>
+      <p>You are responsible for safeguarding your account information and for all activity under your account. Users under 18 must involve a parent or guardian.</p>
+
+      <h2>Reviews and Content</h2>
+      <p>Users may post content if lawful and non-objectionable. By posting, you grant us rights to use, reproduce, and display your content globally. We reserve the right to remove inappropriate content.</p>
+
+      <h2>Intellectual Property Complaints</h2>
+      <p>If you believe your IP rights have been infringed, please contact us. Risk of loss transfers to the buyer upon delivery to the carrier.</p>
+
+      <h2>Product Descriptions</h2>
+      <p>We attempt accuracy but do not guarantee completeness. Returns are accepted for products not as described.</p>
+
+      <h2>Pricing</h2>
+      <p>Prices are estimates and confirmed only upon order. Mispriced items may be corrected at our discretion.</p>
+
+      <h2>Third-Party Services</h2>
+      <p>Third-party sellers operate independently. We are not responsible for their policies or actions.</p>
+
+      <h2>Disclaimer of Warranties and Limitation of Liability</h2>
+      <p>Use of this site is at your own risk. To the fullest extent allowed by law, we disclaim warranties and liability.</p>
+
+      <h2>Applicable Law</h2>
+      <p>These Terms are governed by the laws of the State of New York.</p>
+
+      <h2>Disputes</h2>
+      <p>Disputes will be resolved via arbitration in Toronto, except IP claims which may be brought in New York courts.</p>
+
+      <h2>Payment Disputes</h2>
+      <p>All payment or refund disputes must be handled directly with AutoParts Flamingo 95. Fees may apply for chargebacks.</p>
+
+      <h2>Modification and Severability</h2>
+      <p>We may modify these Terms at any time. Invalid provisions do not affect the remainder of the Terms.</p>
+
+      <!-- ✅ Added Messaging Terms & Conditions Section -->
+      <h2>Messaging Terms & Conditions</h2>
+      <p>
+        You agree to receive informational messages (appointment reminders, account notifications, etc.) from AutoParts Flamingo 95.
+        Message frequency varies. Message and data rates may apply. For help, reply HELP or email us at <a href="mailto:support@autopartsflamingo95.com">support@autopartsflamingo95.com</a>.
+        You can opt out at any time by replying STOP.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> AutoParts Flamingo 95. All rights reserved.
+    <a href="privacy">Privacy Policy</a> |
+    <a href="term">Terms & Conditions</a> |
+    <a href="#refund-policy">Refund Policy</a>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google-site-verification" content="google50d9d522194fdce8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up for SMS Notifications - AutoParts Flamingo 95</title>
+  <meta name="description" content="Sign up for SMS notifications from AutoParts Flamingo 95 — auto parts supply, repair, and maintenance solutions." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/image/android-chrome-192x192.png">
+  <link rel="apple-touch-icon" href="/image/android-chrome-192x192.png">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="/image/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root { --brand: #1a1a1a; --accent: #e63946; --muted: #666; --maxw: 1100px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; line-height: 1.6; color: #222; background: #fff; }
+    main { flex: 1; max-width: var(--maxw); margin: 40px auto; padding: 0 20px; }
+
+    header { background: var(--brand); color: #fff; position: sticky; top: 0; z-index: 20; }
+    header .wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+    .logo { position: relative; display: inline-block; }
+    .logo img { height: 100px; width: auto; display: block; }
+    .logo-text { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 16px; font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); pointer-events: none; }
+
+    header nav { display: flex; align-items: center; gap: 18px; }
+    header nav a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+    header nav a:hover, .dropdown-btn:hover { color: var(--accent); }
+
+    .dropdown { position: relative; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: #fff; color: #222; min-width: 220px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.3); z-index: 50; }
+    .dropdown-content a { color: #222; padding: 10px 16px; display: block; text-decoration: none; }
+    .dropdown-content a:hover { background: var(--accent); color: #fff; }
+    .dropdown:hover .dropdown-content { display: block; }
+
+    .dropdown-btn i { transition: transform 0.3s; }
+    .dropdown:hover .dropdown-btn i { transform: rotate(180deg); }
+
+    footer { background: var(--brand); color: #fff; padding: 20px; text-align: center; font-size: 0.9rem; }
+    footer a { color: #fff; text-decoration: underline; }
+
+    /* --- SMS Signup Styles --- */
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: var(--brand);
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input[type="text"], input[type="tel"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover { background-color: #c92f3d; }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #333;
+      margin-top: 20px;
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    @media(max-width:768px){
+      header nav { flex-direction: column; gap: 10px; }
+      .dropdown-content { position: static; margin-top: 5px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="logo">
+        <a href="index">
+          <img src="https://i.imgur.com/gNGXh5h.png" alt="AutoParts Flamingo 95 Logo">
+        </a>
+        <div class="logo-text"></div>
+      </div>
+      <nav>
+        <a href="index#about">About</a>
+        <a href="index#products">Products</a>
+        <a href="index#services">Services</a>
+        <a href="index#payroll"><i class="fa-solid fa-money-check-dollar"></i> Payments</a>
+        <a href="index#contact">Contact</a>
+        <a href="index#refund-policy">Policies</a>
+        <a href="index#terms">Terms</a>
+        <a id="navLogin"><i class="fa-solid fa-user-lock"></i> Account</a>
+        <div class="dropdown">
+          <span class="dropdown-btn">
+            <span class="departments__button-title">Shop By Category</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+          <div class="dropdown-content">
+            <a href="body">Body Parts</a>
+            <a href="engine">Engine Parts</a>
+            <a href="brake">Brake Parts</a>
+            <a href="electrical">Electrical, Lighting and Body Parts</a>
+            <a href="index#contact">Brake Systems</a>
+            <a href="index#contact">Chassis & Suspension</a>
+            <a href="index#contact">Cooling & Heating</a>
+            <a href="index#contact">Engines & Components</a>
+            <a href="index#contact">Exhaust</a>
+            <a href="index#contact">Exterior & Accessories</a>
+            <a href="index#contact">Fasteners & Hardware</a>
+            <a href="index#contact">Fittings & Hoses</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main>
+    <div class="container">
+      <h1>Sign Up for SMS Notifications</h1>
+      <form action="https://autopartsflamingo95.com/text-notification/submit-sms-form/" method="POST">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="+1 555 555 5555" required>
+
+        <label>
+          <input type="checkbox" name="consent" required>
+          I consent to receive SMS messages from AutoParts Flamingo 95. Msg & data rates may apply. You will receive up to 3 messages per week. Reply STOP to unsubscribe at any time. Reply HELP for support. By subscribing, I agree to the <a href="privacy" target="_blank">Privacy Policy</a>.
+        </label>
+
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <div class="footer">
+  <p>Privacy Policy: <a href="https://autopartsflamingo95.com/privacy" target="_blank">View Here</a></p>
+  <p>Opt-in Disclaimer: <a href="https://autopartsflamingo95.com/text-notification" target="_blank">View Here</a></p>
+</div>
+</div>
+</main>
+
+<footer>
+  <p>&copy; 2025 AutoParts Flamingo 95. All rights reserved. | 
+    <a href="privacy">Privacy Policy</a> | 
+    <a href="terms">Terms of Use</a>
+  </p>
+</footer>
+</body>
+</html>
